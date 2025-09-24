@@ -273,7 +273,7 @@ export const translations: Record<Locale, TranslationShape> = {
           {
             image: "/images/chicago.jpg",
             alt: "Halloween pumpkin among many varieties",
-            heading: "https://farmadyn.pl/",
+            heading: "farmadyn.pl",
             subheading: "Halloween pumpkins – over 30 varieties to choose from."
           },
           {
