@@ -56,15 +56,20 @@ function NavigationBar() {
         </NavLink>
         <button
           type="button"
-          className="nav-toggle"
+          className={`nav-toggle${menuOpen ? " nav-toggle--open" : ""}`}
           aria-expanded={menuOpen}
           aria-controls="primary-navigation"
           onClick={() => setMenuOpen((previousState) => !previousState)}
         >
           <span className="sr-only">Toggle navigation</span>
-          <span className="nav-toggle__bar" />
-          <span className="nav-toggle__bar" />
-          <span className="nav-toggle__bar" />
+          <span aria-hidden="true" className="nav-toggle__icon">
+            <span className="nav-toggle__bar" />
+            <span className="nav-toggle__bar" />
+            <span className="nav-toggle__bar" />
+          </span>
+          <span aria-hidden="true" className="nav-toggle__text">
+            Menu
+          </span>
         </button>
         <div
           id="primary-navigation"

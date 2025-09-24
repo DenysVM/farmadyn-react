@@ -82,30 +82,62 @@ a:focus-visible {
 }
 
 .nav-toggle {
-  width: 44px;
-  height: 44px;
-  border: none;
-  background: none;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 6px;
+  gap: 0.6rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  border: 2px solid var(--color-primary-dark);
+  background: var(--color-primary);
+  color: #ffffff;
   cursor: pointer;
-  border-radius: 50%;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .nav-toggle:hover,
 .nav-toggle:focus-visible {
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+  box-shadow: 0 12px 22px rgba(0, 0, 0, 0.14);
+}
+
+.nav-toggle--open {
+  background: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+}
+
+.nav-toggle__icon {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .nav-toggle__bar {
+  display: block;
   width: 22px;
   height: 2px;
-  background: var(--color-primary-dark);
+  background: currentColor;
+  border-radius: 999px;
   transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-toggle--open .nav-toggle__icon .nav-toggle__bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle--open .nav-toggle__icon .nav-toggle__bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle--open .nav-toggle__icon .nav-toggle__bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.nav-toggle__text {
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 .nav-links {
@@ -115,15 +147,22 @@ a:focus-visible {
   right: 0;
   bottom: 0;
   background: rgba(255, 255, 255, 0.98);
-  transform: translateY(-120%);
-  transition: transform 0.3s ease;
   padding: 2rem 1.5rem 3rem;
   overflow-y: auto;
   box-shadow: 0 24px 48px rgba(0, 0, 0, 0.08);
+  transform: translateY(-16px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 90;
 }
 
 .nav-links--open {
   transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .nav-links ul {
@@ -238,6 +277,9 @@ a:focus-visible {
     box-shadow: none;
     background: transparent;
     height: auto;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
 
   .nav-links ul {
