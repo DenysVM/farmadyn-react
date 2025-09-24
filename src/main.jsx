@@ -12,7 +12,10 @@ const rootElement = document.getElementById("root");
 const root = ReactDOM.createRoot(rootElement);
 
 root.render(
-  <BrowserRouter basename={basename}>
+  <BrowserRouter
+    basename={basename}
+    future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+  >
     <App />
   </BrowserRouter>
 );
