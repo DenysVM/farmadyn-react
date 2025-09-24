@@ -1,87 +1,59 @@
 import React from "react";
+import Page from "../components/layout/Page";
+import TextSection from "../components/sections/TextSection";
 
-function PrivacyPolicy() {
+const sections = [
+  {
+    title: "Data controller",
+    paragraphs: [
+      "Bookingarray Technologies sp. z o.o. manages the Magic Pumpkin Farm website and processes personal data linked to reservations and enquiries.",
+      "The company is registered in Warsaw under KRS 0000915590 and stores data on secured servers in line with current regulations."
+    ]
+  },
+  {
+    title: "How we use data",
+    paragraphs: [
+      "Data is processed only for clearly defined purposes: providing digital services, handling bookings, customer support and legally justified business interests.",
+      "If you subscribe to updates or events, we rely on the consent you provided, which can be withdrawn at any time."
+    ],
+    list: [
+      "Service delivery and contract performance",
+      "Handling payments and confirmations",
+      "Direct marketing with prior consent",
+      "Analytics and service improvements"
+    ]
+  },
+  {
+    title: "Your rights",
+    paragraphs: [
+      "Each visitor may request access to their data, ask for corrections or deletion, restrict processing or object to specific activities.",
+      "Complaints can be lodged with the national data protection authority (PUODO)."
+    ],
+    list: [
+      "Access, rectification and portability",
+      "Erasure and restriction",
+      "Objection to processing, including profiling",
+      "Withdrawal of consent without affecting past processing"
+    ]
+  },
+  {
+    title: "Contact and security",
+    paragraphs: [
+      "We secure the site with encrypted connections (SSL) and limit access to authorised staff only.",
+      "Reach our data protection lead at rodo@warsawexpo.eu for privacy questions or to exercise your rights.",
+      "We may share data with authorities when required by law. Website traffic is measured with Google Analytics cookies to improve navigation." 
+    ]
+  }
+];
+
+function PolicyPage() {
   return (
-    <main>
-      <h1>Polityka prywatności</h1>
-      <section>
-        <h2>Farma Dyń Pumpkin Farm – Polityka prywatności</h2>
-        <p>
-          Administratorem danych jest Bookingarray Technologies Sp. z o.o. z
-          siedzibą w Warszawie, wpisanej do Rejestru Przedsiębiorców pod
-          numerem KRS: 0000915590, dla której akta rejestrowe prowadzi Sąd
-          Rejonowy dla m.st. Warszawy Wydział Gospodarczy Krajowego Rejestru
-          Sądowego, NIP: 5213936461. Ochrona danych odbywa się zgodnie z
-          wymogami powszechnie obowiązujących przepisów prawa, a ich
-          przechowywanie ma miejsce na zabezpieczonych serwerach.
-        </p>
-        <p>
-          Dla interpretacji terminów stosuje się słowniczek Regulaminu lub tak
-          jak zostało to opisane w Polityce prywatności (jeżeli wynika to
-          bezpośrednio z opisu). Na potrzeby lepszego odbioru Polityki
-          prywatności termin „Użytkownik” zastąpiony został określeniem „Ty”,
-          „Administrator” – „My”. Termin „RODO” oznacza Rozporządzenie
-          Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia
-          2016 r.
-        </p>
-        <p>
-          Szanujemy prawo do prywatności i dbamy o bezpieczeństwo danych. W
-          tym celu używany jest między innymi bezpieczny protokół szyfrowania
-          komunikacji SSL. Dane osobowe podawane w formularzu na stronie są
-          traktowane jako poufne i nie są widoczne dla osób nieuprawnionych.
-        </p>
-        <p>
-          Usługodawca jest administratorem danych swoich klientów. Oznacza to,
-          że jeśli posiadasz konto na naszych stronach, to przetwarzamy
-          Twoje dane takie jak imię, nazwisko, adres e‑mail, numer telefonu.
-          Usługodawca jest także administratorem osób zapisanych na
-          newsletter i osób zapisanych na webinar.
-        </p>
-        <p>
-          Dane osobowe przetwarzane są: a) zgodnie z przepisami dotyczącymi
-          ochrony danych osobowych, b) zgodnie z wdrożoną Polityką
-          prywatności, c) w zakresie i celu niezbędnym do nawiązania,
-          ukształtowania treści umowy, zmiany bądź jej rozwiązania oraz
-          prawidłowej realizacji usług świadczonych drogą elektroniczną, d)
-          w zakresie i celu niezbędnym do wypełnienia uzasadnionych
-          interesów (prawnie usprawiedliwionych celów), a przetwarzanie nie
-          narusza praw i wolności osoby, której dane dotyczą, e) w zakresie i
-          celu zgodnym ze zgodą wyrażoną przez Ciebie, jeśli zapisałeś się na
-          newsletter, f) w zakresie i celu zgodnym z wyrażoną przez Ciebie
-          zgodą jeżeli zapisałeś się na webinar.
-        </p>
-        <p>
-          Każda osoba, której dane dotyczą (jeżeli jesteśmy ich
-          administratorem) ma prawo dostępu do danych, sprostowania,
-          usunięcia lub ograniczenia przetwarzania, prawo sprzeciwu, prawo
-          wniesienia skargi do organu nadzorczego.
-        </p>
-        <p>
-          Kontakt z osobą nadzorującą przetwarzanie danych osobowych w
-          organizacji Usługodawcy jest możliwy drogą elektroniczną pod
-          adresem e‑mail: rodo@warsawexpo.eu. Usługodawca ma prawo udostępniać
-          dane osobowe użytkownika oraz innych jego danych podmiotom
-          upoważnionym na podstawie właściwych przepisów prawa, na przykład
-          organom ścigania.
-        </p>
-        <p>
-          Nasze witryny używają cookies. Są to niewielkie pliki tekstowe
-          wysyłane przez serwer www i przechowywane przez oprogramowanie
-          komputera przeglądarki. Kiedy przeglądarka ponownie połączy się ze
-          stroną, witryna rozpoznaje rodzaj urządzenia, z którego łączy się
-          użytkownik.
-        </p>
-        <p>
-          Zebrane dane służą do monitorowania i sprawdzenia, w jaki sposób
-          użytkownicy korzystają z naszych witryn, aby usprawniać
-          funkcjonowanie serwisu zapewniając bardziej efektywną i
-          bezproblemową nawigację. Monitorowania informacji o użytkownikach
-          dokonujemy korzystając z narzędzia Google Analytics, które
-          rejestruje zachowanie użytkownika na stronie.
-        </p>
-      </section>
-    </main>
+    <Page title="Privacy notice" lead="How Magic Pumpkin Farm processes and protects personal data">
+      {sections.map((section) => (
+        <TextSection key={section.title} {...section} />
+      ))}
+    </Page>
   );
 }
 
-export default PrivacyPolicy;
+export default PolicyPage;
