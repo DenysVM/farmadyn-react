@@ -44,7 +44,7 @@ const sections = [
   }
 ];
 
-function EnglishPage() {
+export default function EnglishPage() {
   return (
     <Page title="Magic Pumpkin Farm" lead="Essential information in English">
       {sections.map((section) => (
@@ -55,4 +55,3 @@ function EnglishPage() {
   );
 }
 
-export default EnglishPage;
