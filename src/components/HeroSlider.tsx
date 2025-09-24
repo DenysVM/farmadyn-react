@@ -2,8 +2,8 @@
 import {
   AspectRatio,
   Box,
-  Button,
   HStack,
+  Icon,
   IconButton,
   Image,
   Stack,
@@ -29,6 +29,22 @@ interface HeroSliderProps {
 }
 
 const SLIDE_INTERVAL = 7000;
+
+const PauseIcon = (props: React.ComponentProps<typeof Icon>) => (
+  <Icon viewBox="0 0 24 24" {...props}>
+    <rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor" />
+    <rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor" />
+  </Icon>
+);
+
+const PlayIcon = (props: React.ComponentProps<typeof Icon>) => (
+  <Icon viewBox="0 0 24 24" {...props}>
+    <path
+      fill="currentColor"
+      d="M8 5.5c0-.83.88-1.34 1.6-.93l9.1 5.2c.72.41.72 1.44 0 1.85l-9.1 5.2c-.72.41-1.6-.1-1.6-.93z"
+    />
+  </Icon>
+);
 
 const HeroSlider = ({
   slides,
@@ -110,32 +126,38 @@ const HeroSlider = ({
           </Text>
         </Stack>
 
-        <Stack direction={{ base: "column", sm: "row" }} spacing={3} align={{ base: "stretch", sm: "center" }}>
-          <HStack spacing={2}>
-            <IconButton
-              aria-label={previousLabel}
-              icon={<ChevronLeftIcon />}
-              onClick={() => goToSlide(currentIndex - 1)}
-              colorScheme="blackAlpha"
-              variant="outline"
-              bg="whiteAlpha.200"
-              _hover={{ bg: "whiteAlpha.300" }}
-            />
-            <IconButton
-              aria-label={nextLabel}
-              icon={<ChevronRightIcon />}
-              onClick={() => goToSlide(currentIndex + 1)}
-              colorScheme="blackAlpha"
-              variant="outline"
-              bg="whiteAlpha.200"
-              _hover={{ bg: "whiteAlpha.300" }}
-            />
-          </HStack>
-
-          <Button onClick={() => setIsPaused((prev) => !prev)} colorScheme="orange" variant="solid">
-            {isPaused ? playLabel : pauseLabel}
-          </Button>
-        </Stack>
+        <HStack spacing={2} align="center">
+          <IconButton
+            aria-label={previousLabel}
+            icon={<ChevronLeftIcon boxSize={4} />}
+            onClick={() => goToSlide(currentIndex - 1)}
+            size="sm"
+            variant="ghost"
+            color="white"
+            _hover={{ bg: "whiteAlpha.200" }}
+            _active={{ bg: "whiteAlpha.300" }}
+          />
+          <IconButton
+            aria-label={nextLabel}
+            icon={<ChevronRightIcon boxSize={4} />}
+            onClick={() => goToSlide(currentIndex + 1)}
+            size="sm"
+            variant="ghost"
+            color="white"
+            _hover={{ bg: "whiteAlpha.200" }}
+            _active={{ bg: "whiteAlpha.300" }}
+          />
+          <IconButton
+            aria-label={isPaused ? playLabel : pauseLabel}
+            icon={isPaused ? <PlayIcon boxSize={4} /> : <PauseIcon boxSize={4} />}
+            onClick={() => setIsPaused((prev) => !prev)}
+            size="sm"
+            variant="ghost"
+            color="white"
+            _hover={{ bg: "whiteAlpha.200" }}
+            _active={{ bg: "whiteAlpha.300" }}
+          />
+        </HStack>
 
         <HStack spacing={2}>
           {slideList.map((slide, index) => (

@@ -102,7 +102,7 @@ export const translations: Record<Locale, TranslationShape> = {
           {
             image: "/images/chicago.jpg",
             alt: "Dynia halloweenowa wśród wielu odmian dyni",
-            heading: "MagicPumpkinFarm.pl",
+            heading: "farmadyn.pl",
             subheading: "Dynia na Halloween – ponad 30 gatunków do wyboru."
           },
           {
@@ -151,11 +151,11 @@ export const translations: Record<Locale, TranslationShape> = {
         title: "Regulamin farmy",
         items: [
           "Dzieci przebywają na farmie pod stałą opieką rodziców lub opiekunów.",
-          "Zwierzęta karmią wyłącznie dorośli – nie wkładamy rąk do pysków i trzymamy dystans od ptaków.",
+          "Zwierzęta karmią wyłącznie dorośli – не wkładamy rąk do пysków i trzymamy dystans od ptaków.",
           "Nie podnosimy ani nie ściskamy królików; karmimy tylko te, które podchodzą.",
-          "Nie zrywamy dyni i roślin z dekoracji oraz nie wspinamy się powyżej jednego metra na konstrukcje.",
+          "Nie zrywamy dyni i roślin z dekoracji oraz не wspinamy się powyżej jednego metra na конструкcje.",
           "W labiryncie ze słomy nie przewracamy balotów.",
-          "Huśtamy się ostrożnie, dzieci na trampolinie bawią się bez butów, tyrolka jest dla osób do 65 kg, w strefie Nerf obowiązują okulary ochronne.",
+          "Huśtamy się ostrożnie, dzieci na trampolinie bawią się без butów, tyrolka jest для osób do 65 kg, w strefie Nerf obowiązują okulary ochronne.",
           "Trawy ozdobne mogą być ostre – dbamy o dłonie własne i dzieci. Niestosowanie się do zaleceń obsługi może skutkować opuszczeniem obiektu."
         ]
       }
@@ -167,7 +167,7 @@ export const translations: Record<Locale, TranslationShape> = {
         {
           title: "Dane kontaktowe",
           paragraphs: [
-            "Na wiadomości telefoniczne odpowiadamy najszybciej w godzinach otwarcia farmy, a na e-maile po zamknięciu."
+            "Na wiadomości telefoniczne odpowiadamy najszybciej w godzinach otwarcia farmy, a на e-maile po zamknięciu."
           ],
           list: [
             "Adres: ul. Drewny 17, Warszawa Powsin",
@@ -214,20 +214,20 @@ export const translations: Record<Locale, TranslationShape> = {
         {
           title: "Twoje prawa",
           paragraphs: [
-            "Masz prawo zażądać dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia przetwarzania lub wniesienia sprzeciwu.",
+            "Masz prawo zażądać dostępu do swoich danych, ich sprostowania, usunięcia, ограничzenia przetwarzania lub wniesienia sprzeciwu.",
             "Skargę możesz złożyć do Prezesa Urzędu Ochrony Danych Osobowych (PUODO)."
           ],
           list: [
             "Dostęp do danych i ich przenoszenie",
             "Sprostowanie oraz usunięcie",
             "Ograniczenie przetwarzania i sprzeciw",
-            "Wycofanie zgody bez wpływu na zgodność wcześniejszego przetwarzania"
+            "Wycofanie zgody bez wpływu на zgodność wcześniejszego przetwarzania"
           ]
         },
         {
-          title: "Bezpieczeństwo i kontakt",
+          title: "Bezpieczeństwo i контакт",
           paragraphs: [
-            "Komunikacja z serwisem jest szyfrowana (SSL), a dostęp do danych mają wyłącznie upoważnione osoby.",
+            "Komunikacja z serwisem jest szyfrowana (SSL), a доступ do danych mają wyłącznie upoważnione osoby.",
             "W sprawach dotyczących ochrony danych skontaktuj się z nami pod adresem rodo@warsawexpo.eu.",
             "Dane możemy udostępnić organom publicznym, jeśli wymagają tego przepisy. Ruch na stronie analizujemy z użyciem Google Analytics, aby ulepszać nawigację."
           ]
@@ -273,7 +273,7 @@ export const translations: Record<Locale, TranslationShape> = {
           {
             image: "/images/chicago.jpg",
             alt: "Halloween pumpkin among many varieties",
-            heading: "MagicPumpkinFarm.pl",
+            heading: "https://farmadyn.pl/",
             subheading: "Halloween pumpkins – over 30 varieties to choose from."
           },
           {
