@@ -142,15 +142,16 @@ a:focus-visible {
 
 .nav-links {
   position: fixed;
-  top: var(--header-height);
+  top: 0;
+  padding-top: calc(var(--header-height) + 2rem);
   left: 0;
   right: 0;
   bottom: 0;
   background: rgba(255, 255, 255, 0.98);
-  padding: 2rem 1.5rem 3rem;
+  padding: calc(var(--header-height) + 2rem) 1.5rem 3rem;
   overflow-y: auto;
   box-shadow: 0 24px 48px rgba(0, 0, 0, 0.08);
-  transform: translateY(-16px);
+  transform: translateY(-100%);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
