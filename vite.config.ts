@@ -23,10 +23,6 @@ export default defineConfig(({ mode }) => {
           }
         }
       }
-    ],
-    esbuild: {
-      loader: "jsx",
-      include: /src\/.*\.[jt]sx$/
-    }
+    ]
   };
 });
