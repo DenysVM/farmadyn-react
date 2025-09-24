@@ -7,6 +7,13 @@ interface SectionContent {
   list?: string[];
 }
 
+interface SliderSlide {
+  image: string;
+  alt: string;
+  heading: string;
+  subheading: string;
+}
+
 interface NavigationTranslations {
   menu: string;
   close: string;
@@ -20,6 +27,13 @@ interface NavigationTranslations {
 interface HomeTranslations {
   title: string;
   lead: string;
+  slider: {
+    play: string;
+    pause: string;
+    next: string;
+    previous: string;
+    slides: SliderSlide[];
+  };
   sections: SectionContent[];
   rules: {
     title: string;
@@ -73,6 +87,32 @@ export const translations: Record<Locale, TranslationShape> = {
     home: {
       title: "Magiczna Farma Dyń",
       lead: "Warszawa Powsin • 6 września – 31 października 2025",
+      slider: {
+        play: "Wznów pokaz slajdów",
+        pause: "Wstrzymaj pokaz slajdów",
+        next: "Następny slajd",
+        previous: "Poprzedni slajd",
+        slides: [
+          {
+            image: "/images/ny.jpg",
+            alt: "Rodzina na polu dyniowym z labiryntem ze słomy",
+            heading: "Zwierzęta, labirynt ze słomy i pole dyniowe",
+            subheading: "Dzieci uwielbiają Magiczną Farmę Dyń!"
+          },
+          {
+            image: "/images/chicago.jpg",
+            alt: "Dynia halloweenowa wśród wielu odmian dyni",
+            heading: "MagicPumpkinFarm.pl",
+            subheading: "Dynia na Halloween – ponad 30 gatunków do wyboru."
+          },
+          {
+            image: "/images/la.jpg",
+            alt: "Różnorodne dynie ułożone na drewnianych półkach",
+            heading: "Największy wybór dyni",
+            subheading: "Dynie na Halloween i do kuchni w jednym miejscu."
+          }
+        ]
+      },
       sections: [
         {
           title: "Sezon i bilety",
@@ -95,7 +135,7 @@ export const translations: Record<Locale, TranslationShape> = {
           paragraphs: [
             "Programy dla szkół i przedszkoli trwają dwie i pół godziny i rozpoczynają się o 09:30 lub 10:15.",
             "Przewodnicy oprowadzają po mini zoo i atrakcjach, a każde dziecko wybiera dynię, którą zabiera do domu.",
-            "Dwóch 200-metrowych namiotów z miejscami do siedzenia można używać na drugie śniadanie. Cena: 69 PLN za dziecko lub 95 PLN z wyżywieniem."
+            "Dwa 200-metrowe namioty z miejscami do siedzenia czekają na drugie śniadanie. Cena: 69 PLN za dziecko lub 95 PLN z wyżywieniem."
           ]
         },
         {
@@ -218,6 +258,32 @@ export const translations: Record<Locale, TranslationShape> = {
     home: {
       title: "Magic Pumpkin Farm",
       lead: "Warsaw Powsin • 6 September – 31 October 2025",
+      slider: {
+        play: "Resume slideshow",
+        pause: "Pause slideshow",
+        next: "Next slide",
+        previous: "Previous slide",
+        slides: [
+          {
+            image: "/images/ny.jpg",
+            alt: "Family exploring the straw maze and pumpkin field",
+            heading: "Animals, straw maze and pumpkin field",
+            subheading: "Kids love Magic Pumpkin Farm!"
+          },
+          {
+            image: "/images/chicago.jpg",
+            alt: "Halloween pumpkin among many varieties",
+            heading: "MagicPumpkinFarm.pl",
+            subheading: "Halloween pumpkins – over 30 varieties to choose from."
+          },
+          {
+            image: "/images/la.jpg",
+            alt: "Diverse pumpkins arranged on wooden shelves",
+            heading: "Largest pumpkin selection",
+            subheading: "Pumpkins for Halloween and for the kitchen."
+          }
+        ]
+      },
       sections: [
         {
           title: "Season and tickets",
