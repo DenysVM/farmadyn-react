@@ -1,10 +1,10 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import NavigationBar from "./components/NavBar";
-import HomePage from "./pages/HomePage";
-import EnglishPage from "./pages/EnglishPage";
-import PolicyPage from "./pages/PolicyPage";
-import ContactPage from "./pages/ContactPage";
+import HomePage from "./pages/HomePage.jsx";
+import EnglishPage from "./pages/EnglishPage.jsx";
+import PolicyPage from "./pages/PolicyPage.jsx";
+import ContactPage from "./pages/ContactPage.jsx";
 
 function App() {
   return (
@@ -21,3 +21,4 @@ function App() {
 }
 
 export default App;
+
