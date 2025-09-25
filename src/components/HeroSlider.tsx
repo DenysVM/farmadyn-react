@@ -11,6 +11,7 @@ import {
   useToken
 } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import { resolveAssetPath } from "../utils/assetPath";
 
 export interface HeroSlide {
   image: string;
@@ -54,7 +55,14 @@ const HeroSlider = ({
   nextLabel,
   interval = SLIDE_INTERVAL
 }: HeroSliderProps) => {
-  const slideList = useMemo(() => slides.filter(Boolean), [slides]);
+  const slideList = useMemo(
+    () =>
+      slides
+        .filter(Boolean)
+        .map((slide) => ({ ...slide, image: resolveAssetPath(slide.image) })),
+    [slides]
+  );
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [shadowColor] = useToken("colors", ["blackAlpha.600"]);

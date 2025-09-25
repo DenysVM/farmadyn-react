@@ -1,19 +1,30 @@
-﻿export type Locale = "pl" | "en";
+export type Locale = "pl" | "en";
 export type NavLinkKey = "home" | "privacy" | "contact";
-
+type SectionLinkAction = {
+  type: "link";
+  label: string;
+  href: string;
+  isExternal?: boolean;
+};
+type SectionModalImageAction = {
+  type: "modalImage";
+  label: string;
+  imageSrc: string;
+  imageAlt: string;
+};
+type SectionAction = SectionLinkAction | SectionModalImageAction;
 interface SectionContent {
   title: string;
   paragraphs?: string[];
   list?: string[];
+  actions?: SectionAction[];
 }
-
 interface SliderSlide {
   image: string;
   alt: string;
   heading: string;
   subheading: string;
 }
-
 interface NavigationTranslations {
   menu: string;
   close: string;
@@ -23,7 +34,6 @@ interface NavigationTranslations {
   languages: Record<Locale, string>;
   links: Record<NavLinkKey, { label: string; description?: string }>;
 }
-
 interface HomeTranslations {
   title: string;
   lead: string;
@@ -40,19 +50,16 @@ interface HomeTranslations {
     items: string[];
   };
 }
-
 interface ContactTranslations {
   title: string;
   lead: string;
   sections: SectionContent[];
 }
-
 interface PrivacyTranslations {
   title: string;
   lead: string;
   sections: SectionContent[];
 }
-
 export interface TranslationShape {
   navigation: NavigationTranslations;
   common: {
@@ -62,7 +69,6 @@ export interface TranslationShape {
   contact: ContactTranslations;
   privacy: PrivacyTranslations;
 }
-
 export const translations: Record<Locale, TranslationShape> = {
   pl: {
     navigation: {
@@ -119,15 +125,24 @@ export const translations: Record<Locale, TranslationShape> = {
           paragraphs: [
             "Sezon dyniowy trwa od 6 września do 31 października 2025. Farma jest otwarta codziennie w godzinach 09:00–18:00.",
             "Bilet wstępu dla gości indywidualnych kosztuje 39 PLN. Dzieci do ukończenia pierwszego roku życia wchodzą bezpłatnie.",
-            "Akceptujemy płatności kartą. Przyjazne psy na smyczy są mile widziane."
+            "Akceptujemy płatności kartą."
+          ],
+          actions: [
+            {
+              type: "link",
+              label: "Kup bilety",
+              href: "https://farmadyn.ticketpoland.pl/sklep/",
+              isExternal: true
+            }
           ]
         },
         {
           title: "Atrakcje na terenie",
-          paragraphs: [
+          list: [
             "Ponad czterdzieści odmian dyń prosto z pola – około siedmiu tysięcy okazów gotowych do zabrania lub użycia w dekoracjach.",
             "Strefa gastro z kawą, herbatą, frytkami, ciastem dyniowym i zupą dyniową.",
-            "Mini zoo z alpakami, kozami, królikami, gęsiami, indykami i kurami, piramidy ze słomy, tyrolka o długości 70 metrów, huśtawki, trampoliny, labirynt, dmuchane zjeżdżalnie, strefa Nerf i gokarty na pedały."
+            "Mini zoo z alpakami, kozami, królikami, gęsiami, indykami i kurami.",
+            "Piramidy ze słomy, tyrolka o długości 70 metrów, huśtawki, trampoliny, labirynt, dmuchane zjeżdżalnie, strefa Nerf i gokarty na pedały."
           ]
         },
         {
@@ -136,6 +151,14 @@ export const translations: Record<Locale, TranslationShape> = {
             "Programy dla szkół i przedszkoli trwają dwie i pół godziny i rozpoczynają się o 09:30 lub 10:15.",
             "Przewodnicy oprowadzają po mini zoo i atrakcjach, a każde dziecko wybiera dynię, którą zabiera do domu.",
             "Dwa 200-metrowe namioty z miejscami do siedzenia czekają na drugie śniadanie. Cena: 69 PLN za dziecko lub 95 PLN z wyżywieniem."
+          ],
+          actions: [
+            {
+              type: "modalImage",
+              label: "Zobacz ulotke",
+              imageSrc: "images/ulotka2025.jpg",
+              imageAlt: "Ulotka wycieczek edukacyjnych 2025"
+            }
           ]
         },
         {
@@ -151,6 +174,7 @@ export const translations: Record<Locale, TranslationShape> = {
         title: "Regulamin farmy",
         items: [
           "Dzieci przebywają na farmie pod stałą opieką rodziców lub opiekunów.",
+          "Przyjazne psy na smyczy są mile widziane. Sprzątaj po swoim pupilu i dbaj o komfort innych gości.",
           "Zwierzęta karmią wyłącznie dorośli – не wkładamy rąk do пysków i trzymamy dystans od ptaków.",
           "Nie podnosimy ani nie ściskamy królików; karmimy tylko te, które podchodzą.",
           "Nie zrywamy dyni i roślin z dekoracji oraz не wspinamy się powyżej jednego metra na конструкcje.",
@@ -290,15 +314,24 @@ export const translations: Record<Locale, TranslationShape> = {
           paragraphs: [
             "Pumpkin season runs from 6 September to 31 October 2025. The farm is open every day from 09:00 to 18:00.",
             "Individual entry costs 39 PLN. Children under one year old enter free of charge.",
-            "Card payments are accepted. Friendly dogs on a leash are welcome."
+            "Card payments are accepted."
+          ],
+          actions: [
+            {
+              type: "link",
+              label: "Buy tickets",
+              href: "https://farmadyn.ticketpoland.pl/sklep/",
+              isExternal: true
+            }
           ]
         },
         {
           title: "On-site attractions",
-          paragraphs: [
+          list: [
             "More than forty pumpkin varieties straight from the field – around seven thousand pumpkins ready to take home or decorate with.",
             "Food court with coffee, tea, fries, pumpkin cake and pumpkin soup.",
-            "A mini zoo with alpacas, goats, rabbits, geese, turkeys and hens, straw pyramids, a 70 m zip line, swings, trampolines, a straw maze, inflatable slides, a Nerf arena and pedal go-karts."
+            "A mini zoo with alpacas, goats, rabbits, geese, turkeys and hens.",
+            "Straw pyramids, a 70 m zip line, swings, trampolines, a straw maze, inflatable slides, a Nerf arena and pedal go-karts."
           ]
         },
         {
@@ -307,6 +340,14 @@ export const translations: Record<Locale, TranslationShape> = {
             "School and kindergarten programmes last two and a half hours and start at 09:30 or 10:15.",
             "Guides lead feeding sessions in the mini zoo, accompany groups through the attractions and help every child pick a pumpkin to take home.",
             "Two 200 m tent halls with seating are available for snack breaks. Price: 69 PLN per child or 95 PLN with catering."
+          ],
+          actions: [
+            {
+              type: "modalImage",
+              label: "View flyer",
+              imageSrc: "images/ulotka2025.jpg",
+              imageAlt: "Educational trips flyer 2025"
+            }
           ]
         },
         {
@@ -322,6 +363,7 @@ export const translations: Record<Locale, TranslationShape> = {
         title: "Farm rules",
         items: [
           "Children must remain under the supervision of parents or guardians at all times.",
+          "Friendly dogs on a leash are welcome. Please keep them close, clean up after them and respect other visitors.",
           "Only adults may feed the animals – keep hands away from their mouths and maintain distance from birds.",
           "Do not lift or squeeze rabbits; feed only the animals that approach you.",
           "Do not remove pumpkins or plants from decorations and do not climb higher than one metre on any structures.",
@@ -407,5 +449,4 @@ export const translations: Record<Locale, TranslationShape> = {
     }
   }
 };
-
 export const availableLocales: Locale[] = ["pl", "en"];
