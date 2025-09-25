@@ -1,4 +1,4 @@
-﻿import { CheckIcon, ChevronDownIcon, CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { CheckIcon, ChevronDownIcon, CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -110,54 +110,27 @@ const NavigationBar = () => {
     [navigation.languages]
   );
 
-  const LanguageSwitcher = ({
-    variant
-  }: {
-    variant: "desktop" | "mobileHeader" | "mobileSheet";
-  }) => {
+  const LanguageSwitcher = ({ variant }: { variant: "desktop" | "mobile" }) => {
     const isDesktop = variant === "desktop";
-    const isMobileHeader = variant === "mobileHeader";
-    const isMobileSheet = variant === "mobileSheet";
-
-    const buttonProps = {
-      variant: isDesktop ? "ghost" : isMobileHeader ? "primary" : "secondary",
-      size: isDesktop ? "sm" : isMobileHeader ? "sm" : "md",
-      px: isDesktop ? 3 : 4,
-      rightIcon: <ChevronDownIcon boxSize={3} />,
-      fontWeight: "semibold",
-      letterSpacing: "wider",
-      ...(isMobileHeader
-        ? {
-            boxShadow: "md"
-          }
-        : {}),
-      ...(isMobileSheet
-        ? {
-            w: "full",
-            justifyContent: "space-between"
-          }
-        : {})
-    } as const;
 
     return (
-      <Menu placement={isDesktop ? "bottom-end" : "bottom-start"} isLazy>
-        <MenuButton as={Button} {...buttonProps} aria-label={navigation.languageLabel}>
-          {isMobileSheet ? (
-            <HStack spacing={3} w="full" justify="space-between">
-              <Text fontWeight="semibold" letterSpacing="widest">
-                {localeIcon[locale]}
-              </Text>
-              <Text fontSize="sm" color="gray.600">
-                {navigation.languages[locale]}
-              </Text>
-            </HStack>
-          ) : (
-            <Text fontWeight="semibold" letterSpacing="widest">
-              {localeIcon[locale]}
-            </Text>
-          )}
+      <Menu placement="bottom-end" isLazy>
+        <MenuButton
+          as={Button}
+          variant={isDesktop ? "ghost" : "primary"}
+          size="sm"
+          px={isDesktop ? 3 : 4}
+          rightIcon={<ChevronDownIcon boxSize={3} />}
+          fontWeight="semibold"
+          letterSpacing="wider"
+          boxShadow={isDesktop ? undefined : "md"}
+          aria-label={navigation.languageLabel}
+        >
+          <Text fontWeight="semibold" letterSpacing="widest">
+            {localeIcon[locale]}
+          </Text>
         </MenuButton>
-        <MenuList bg="white" borderColor="orange.200" boxShadow="xl" py={1}>
+        <MenuList bg="white" borderColor="orange.200" boxShadow="xl" py={2}>
           {languageOptions.map(({ code, label }) => (
             <MenuItem
               key={code}
@@ -170,10 +143,11 @@ const NavigationBar = () => {
               alignItems="center"
               gap={3}
               fontWeight={locale === code ? "semibold" : "medium"}
+              bg={locale === code ? "orange.50" : "transparent"}
               _hover={{ bg: "orange.50" }}
               _focus={{ bg: "orange.100" }}
             >
-              <Text fontWeight="semibold" letterSpacing="widest" w={10}>
+              <Text fontWeight="semibold" letterSpacing="widest" w={8}>
                 {localeIcon[code as Locale]}
               </Text>
               <Text flex="1" fontSize="sm">
@@ -226,24 +200,23 @@ const NavigationBar = () => {
           <LanguageSwitcher variant="desktop" />
         </Box>
 
-        <HStack spacing={2} display={{ base: "flex", md: "none" }}>
-          <Button
-            onClick={onToggle}
-            variant="ghost"
-            size="sm"
-            px={4}
-            py={2}
-            borderRadius="full"
-            gap={2}
-            aria-label={isOpen ? navigation.closeMenuLabel : navigation.openMenuLabel}
-          >
-            {isOpen ? <CloseIcon boxSize={3} /> : <HamburgerIcon boxSize={4} />}
-            <Text fontSize="xs" fontWeight="bold" letterSpacing="widest">
-              {isOpen ? navigation.close : navigation.menu}
-            </Text>
-          </Button>
-          <LanguageSwitcher variant="mobileHeader" />
-        </HStack>
+        <Button
+          display={{ base: "inline-flex", md: "none" }}
+          onClick={onToggle}
+          variant="primary"
+          size="sm"
+          px={4}
+          py={2}
+          borderRadius="full"
+          gap={2}
+          boxShadow="md"
+          aria-label={isOpen ? navigation.closeMenuLabel : navigation.openMenuLabel}
+        >
+          {isOpen ? <CloseIcon boxSize={3} /> : <HamburgerIcon boxSize={4} />}
+          <Text fontSize="xs" fontWeight="bold" letterSpacing="widest">
+            {isOpen ? navigation.close : navigation.menu}
+          </Text>
+        </Button>
       </Flex>
 
       <Slide direction="top" in={isOpen} style={{ zIndex: 1400, top: "64px" }} unmountOnExit>
@@ -255,9 +228,11 @@ const NavigationBar = () => {
           minH="calc(100vh - 64px)"
           display={{ base: "block", md: "none" }}
         >
-          <Stack spacing={10}>
+          <Stack spacing={8} align="stretch">
+            <HStack justify="flex-end">
+              <LanguageSwitcher variant="mobile" />
+            </HStack>
             {renderLinks("column")}
-            <LanguageSwitcher variant="mobileSheet" />
           </Stack>
         </Box>
       </Slide>
