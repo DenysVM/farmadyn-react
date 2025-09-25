@@ -25,9 +25,9 @@ import { useLocale } from "../i18n/LocaleContext";
 
 const navLinkOrder: NavLinkKey[] = ["home", "contact", "privacy"];
 
-const localeSwatch: Record<Locale, string> = {
-  pl: "linear(to-b, white 50%, #dc143c 50%)",
-  en: "linear(to-br, #00247d 0%, #00247d 45%, #cf142b 45%, #cf142b 55%, #00247d 55%, #00247d 100%)"
+const localeIcon: Record<Locale, string> = {
+  pl: "PL",
+  en: "EN"
 };
 
 const NavigationBar = () => {
@@ -111,46 +111,21 @@ const NavigationBar = () => {
   );
 
   const LanguageSwitcher = ({ variant }: { variant: "desktop" | "mobile" }) => (
-    <Stack spacing={variant === "mobile" ? 2 : 1} align={variant === "mobile" ? "stretch" : "flex-end"}>
-      {variant === "mobile" && (
-        <Text
-          fontSize="xs"
-          fontWeight="semibold"
-          letterSpacing="widest"
-          textTransform="uppercase"
-          color="gray.500"
-        >
-          {navigation.languageLabel}
-        </Text>
-      )}
+    <Stack spacing={1} align={variant === "mobile" ? "flex-start" : "flex-end"}>
       <Menu placement={variant === "desktop" ? "bottom-end" : "bottom-start"} isLazy>
         <MenuButton
           as={Button}
           variant="ghost"
           size={variant === "desktop" ? "sm" : "md"}
-          w={variant === "mobile" ? "full" : "auto"}
-          rightIcon={<ChevronDownIcon />}
-          justifyContent="center"
           px={variant === "desktop" ? 3 : 4}
+          rightIcon={<ChevronDownIcon boxSize={3} />}
+          letterSpacing="wider"
+          fontWeight="semibold"
+          aria-label={navigation.languageLabel}
         >
-          <HStack spacing={variant === "desktop" ? 2 : 3} justify="center" w="full">
-            <Box
-              w={variant === "desktop" ? 6 : 8}
-              h={variant === "desktop" ? 6 : 8}
-              borderRadius="full"
-              borderWidth="1px"
-              borderColor="blackAlpha.200"
-              bgGradient={localeSwatch[locale]}
-              boxShadow="inset 0 0 2px rgba(0, 0, 0, 0.15)"
-            />
-            {variant === "mobile" && (
-              <Text fontWeight="semibold" fontSize="sm">
-                {navigation.languages[locale]}
-              </Text>
-            )}
-          </HStack>
+          {localeIcon[locale]}
         </MenuButton>
-        <MenuList minW="200px" py={1}>
+        <MenuList minW="160px" py={1}>
           {languageOptions.map(({ code, label }) => (
             <MenuItem
               key={code}
@@ -164,16 +139,12 @@ const NavigationBar = () => {
               gap={3}
               fontWeight={locale === code ? "semibold" : "medium"}
             >
-              <Box
-                w={6}
-                h={6}
-                borderRadius="full"
-                borderWidth="1px"
-                borderColor="blackAlpha.200"
-                bgGradient={localeSwatch[code as Locale]}
-                boxShadow="inset 0 0 2px rgba(0, 0, 0, 0.15)"
-              />
-              <Text flex="1">{label}</Text>
+              <Text fontWeight="semibold" letterSpacing="widest" w={10}>
+                {localeIcon[code as Locale]}
+              </Text>
+              <Text flex="1" fontSize="sm">
+                {label}
+              </Text>
               {locale === code && <CheckIcon boxSize={3} color="brand.500" />}
             </MenuItem>
           ))}
