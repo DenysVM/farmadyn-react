@@ -104,8 +104,9 @@ const TextSection = ({ title, paragraphs = [], list, actions = [] }: TextSection
                     href={action.href}
                     target={action.isExternal ? "_blank" : undefined}
                     rel={action.isExternal ? "noopener noreferrer" : undefined}
-                    colorScheme="brand"
-                    variant="solid"
+                    variant="primary"
+                    w={{ base: "full", md: "auto" }}
+                    justifyContent="center"
                   >
                     {action.label}
                   </Button>
@@ -116,8 +117,9 @@ const TextSection = ({ title, paragraphs = [], list, actions = [] }: TextSection
                 <Button
                   key={`${action.type}-${action.label}-${index}`}
                   onClick={() => openModal(action)}
-                  colorScheme="brand"
-                  variant="outline"
+                  variant="secondary"
+                  w={{ base: "full", md: "auto" }}
+                  justifyContent="center"
                 >
                   {action.label}
                 </Button>

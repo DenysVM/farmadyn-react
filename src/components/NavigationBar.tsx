@@ -1,9 +1,14 @@
-import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { CheckIcon, ChevronDownIcon, CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
   Flex,
+  HStack,
   Link as ChakraLink,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Slide,
   Stack,
   Text,
@@ -18,7 +23,12 @@ import {
 } from "../i18n/translations";
 import { useLocale } from "../i18n/LocaleContext";
 
-const navLinkOrder: NavLinkKey[] = ["home", "privacy", "contact"];
+const navLinkOrder: NavLinkKey[] = ["home", "contact", "privacy"];
+
+const localeSwatch: Record<Locale, string> = {
+  pl: "linear(to-b, white 50%, #dc143c 50%)",
+  en: "linear(to-br, #00247d 0%, #00247d 45%, #cf142b 45%, #cf142b 55%, #00247d 55%, #00247d 100%)"
+};
 
 const NavigationBar = () => {
   const { isOpen, onToggle, onClose } = useDisclosure();
@@ -100,8 +110,8 @@ const NavigationBar = () => {
     [navigation.languages]
   );
 
-  const renderLanguageSwitcher = (variant: "desktop" | "mobile") => (
-    <Stack spacing={variant === "mobile" ? 3 : 1} align="flex-start">
+  const LanguageSwitcher = ({ variant }: { variant: "desktop" | "mobile" }) => (
+    <Stack spacing={variant === "mobile" ? 2 : 1} align={variant === "mobile" ? "stretch" : "flex-end"}>
       {variant === "mobile" && (
         <Text
           fontSize="xs"
@@ -113,23 +123,62 @@ const NavigationBar = () => {
           {navigation.languageLabel}
         </Text>
       )}
-      <Stack direction="row" spacing={2}>
-        {languageOptions.map(({ code, label }) => (
-          <Button
-            key={code}
-            size={variant === "mobile" ? "sm" : "xs"}
-            variant={locale === code ? "solid" : "outline"}
-            colorScheme="orange"
-            onClick={() => {
-              if (locale !== code) {
-                setLocale(code as Locale);
-              }
-            }}
-          >
-            {label}
-          </Button>
-        ))}
-      </Stack>
+      <Menu placement={variant === "desktop" ? "bottom-end" : "bottom-start"} isLazy>
+        <MenuButton
+          as={Button}
+          variant="ghost"
+          size={variant === "desktop" ? "sm" : "md"}
+          w={variant === "mobile" ? "full" : "auto"}
+          rightIcon={<ChevronDownIcon />}
+          justifyContent="center"
+          px={variant === "desktop" ? 3 : 4}
+        >
+          <HStack spacing={variant === "desktop" ? 2 : 3} justify="center" w="full">
+            <Box
+              w={variant === "desktop" ? 6 : 8}
+              h={variant === "desktop" ? 6 : 8}
+              borderRadius="full"
+              borderWidth="1px"
+              borderColor="blackAlpha.200"
+              bgGradient={localeSwatch[locale]}
+              boxShadow="inset 0 0 2px rgba(0, 0, 0, 0.15)"
+            />
+            {variant === "mobile" && (
+              <Text fontWeight="semibold" fontSize="sm">
+                {navigation.languages[locale]}
+              </Text>
+            )}
+          </HStack>
+        </MenuButton>
+        <MenuList minW="200px" py={1}>
+          {languageOptions.map(({ code, label }) => (
+            <MenuItem
+              key={code}
+              onClick={() => {
+                if (locale !== code) {
+                  setLocale(code as Locale);
+                }
+              }}
+              display="flex"
+              alignItems="center"
+              gap={3}
+              fontWeight={locale === code ? "semibold" : "medium"}
+            >
+              <Box
+                w={6}
+                h={6}
+                borderRadius="full"
+                borderWidth="1px"
+                borderColor="blackAlpha.200"
+                bgGradient={localeSwatch[code as Locale]}
+                boxShadow="inset 0 0 2px rgba(0, 0, 0, 0.15)"
+              />
+              <Text flex="1">{label}</Text>
+              {locale === code && <CheckIcon boxSize={3} color="brand.500" />}
+            </MenuItem>
+          ))}
+        </MenuList>
+      </Menu>
     </Stack>
   );
 
@@ -168,13 +217,14 @@ const NavigationBar = () => {
 
         <Box display={{ base: "none", md: "block" }}>{renderLinks("row")}</Box>
 
-        <Box display={{ base: "none", md: "block" }}>{renderLanguageSwitcher("desktop")}</Box>
+        <Box display={{ base: "none", md: "block" }}>
+          <LanguageSwitcher variant="desktop" />
+        </Box>
 
         <Button
           display={{ base: "inline-flex", md: "none" }}
           onClick={onToggle}
-          variant="solid"
-          colorScheme="orange"
+          variant="primary"
           size="sm"
           px={4}
           py={2}
@@ -200,7 +250,7 @@ const NavigationBar = () => {
         >
           <Stack spacing={10}>
             {renderLinks("column")}
-            {renderLanguageSwitcher("mobile")}
+            <LanguageSwitcher variant="mobile" />
           </Stack>
         </Box>
       </Slide>

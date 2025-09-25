@@ -39,6 +39,60 @@ const theme = extendTheme({
         maxW: "container.xl",
         px: { base: 4, md: 6 }
       }
+    },
+    Button: {
+      baseStyle: {
+        borderRadius: "full",
+        fontWeight: "semibold",
+        letterSpacing: "wider"
+      },
+      sizes: {
+        md: {
+          minH: "48px",
+          fontSize: "sm",
+          px: 6
+        },
+        sm: {
+          minH: "40px",
+          fontSize: "sm",
+          px: 5
+        }
+      },
+      variants: {
+        primary: {
+          bg: "brand.500",
+          color: "white",
+          boxShadow: "sm",
+          _hover: {
+            bg: "brand.400",
+            _disabled: { bg: "brand.500" }
+          },
+          _active: {
+            bg: "brand.600"
+          }
+        },
+        secondary: {
+          bg: "white",
+          color: "brand.500",
+          borderWidth: "1px",
+          borderColor: "brand.500",
+          _hover: {
+            bg: "brand.50"
+          },
+          _active: {
+            bg: "brand.100"
+          }
+        },
+        ghost: {
+          color: "gray.700",
+          _hover: {
+            bg: "blackAlpha.50"
+          },
+          _active: {
+            bg: "blackAlpha.100"
+          }
+        }
+      }
     }
   }
 });
