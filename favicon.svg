@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="pumpkin-body" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#ffb347" />
+      <stop offset="100%" stop-color="#f57c00" />
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#fff4e6" />
+  <g transform="translate(8 6)">
+    <path d="M24 4c1.6-2.6 3.5-4 5.6-4 2.8 0 4.4 2.2 4.4 5 0 1.2-.2 2.4-.6 3.6" fill="#4caf50"/>
+    <ellipse cx="24" cy="30" rx="20" ry="18" fill="url(#pumpkin-body)" />
+    <ellipse cx="14" cy="30" rx="8" ry="16" fill="rgba(230,113,0,0.8)" />
+    <ellipse cx="34" cy="30" rx="8" ry="16" fill="rgba(230,113,0,0.8)" />
+    <path d="M21 36c2 2 4 2 6 0" stroke="#bf360c" stroke-width="2" stroke-linecap="round" />
+    <circle cx="18" cy="28" r="2" fill="#3e2723" />
+    <circle cx="30" cy="28" r="2" fill="#3e2723" />
+  </g>
+</svg>
