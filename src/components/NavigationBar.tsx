@@ -4,6 +4,7 @@ import {
   Button,
   Flex,
   HStack,
+  IconButton,
   Link as ChakraLink,
   Menu,
   MenuButton,
@@ -61,7 +62,7 @@ const NavigationBar = () => {
   const renderLinks = (orientation: "row" | "column") => (
     <Stack
       direction={orientation}
-      spacing={orientation === "row" ? 6 : 6}
+      spacing={6}
       align={orientation === "row" ? "center" : "stretch"}
       w="full"
     >
@@ -102,61 +103,87 @@ const NavigationBar = () => {
   );
 
   const languageOptions = useMemo(
-    () =>
-      availableLocales.map((code) => ({
-        code,
-        label: navigation.languages[code]
-      })),
+    () => availableLocales.map((code) => ({ code, label: navigation.languages[code] })),
     [navigation.languages]
   );
 
-  const LanguageSwitcher = ({ variant }: { variant: "desktop" | "mobile" }) => {
+  const LanguageSwitcher = ({ variant }: { variant: "desktop" | "mobileSheet" }) => {
     const isDesktop = variant === "desktop";
+    const isMobileSheet = variant === "mobileSheet";
 
     return (
-      <Menu placement="bottom-end" isLazy>
-        <MenuButton
-          as={Button}
-          variant={isDesktop ? "ghost" : "primary"}
-          size="sm"
-          px={isDesktop ? 3 : 4}
-          w={isDesktop ? undefined : "full"}
-          rightIcon={<ChevronDownIcon boxSize={3} />}
-          fontWeight="semibold"
-          letterSpacing="wider"
-          boxShadow={isDesktop ? undefined : "md"}
-          aria-label={navigation.languageLabel}
-        >
-          <Text fontWeight="semibold" letterSpacing="widest">
-            {localeIcon[locale]}
-          </Text>
-        </MenuButton>
-        <MenuList bg="white" borderColor="orange.200" boxShadow="xl" py={1}>
-          {languageOptions.map(({ code }) => (
-            <MenuItem
-              key={code}
-              onClick={() => {
-                if (locale !== code) {
-                  setLocale(code as Locale);
-                }
-              }}
-              display="flex"
-              alignItems="center"
-              gap={3}
-              fontWeight={locale === code ? "semibold" : "medium"}
-              bg={locale === code ? "orange.50" : "transparent"}
-              _hover={{ bg: "orange.50" }}
-              _focus={{ bg: "orange.100" }}
+      <Menu placement={isDesktop ? "bottom-end" : "bottom-start"} isLazy>
+        {({ isOpen: isMenuOpen }) => (
+          <>
+            <MenuButton
+              as={Button}
+              variant="unstyled"
+              px={isDesktop ? 4 : 5}
+              py={isDesktop ? 2 : 3}
+              borderRadius="full"
+              bg="orange.50"
+              color="brand.600"
+              borderWidth="1px"
+              borderColor={isMenuOpen ? "orange.400" : "orange.200"}
+              boxShadow={isMobileSheet ? "xl" : "md"}
+              transition="all 0.2s ease"
+              _hover={{ bg: "orange.100", borderColor: "orange.300" }}
+              _expanded={{ bg: "orange.100", borderColor: "orange.400", boxShadow: "xl" }}
+              _focusVisible={{ boxShadow: "0 0 0 3px rgba(237, 137, 54, 0.35)" }}
+              aria-label={navigation.languageLabel}
             >
-              <HStack w="full" justify="space-between">
+              <HStack spacing={2}>
                 <Text fontWeight="semibold" letterSpacing="widest">
-                  {localeIcon[code as Locale]}
+                  {localeIcon[locale]}
                 </Text>
-                {locale === code && <CheckIcon boxSize={3} color="brand.500" />}
+                <ChevronDownIcon
+                  boxSize={3}
+                  transition="transform 0.2s ease"
+                  transform={isMenuOpen ? "rotate(180deg)" : "rotate(0deg)"}
+                  color="brand.500"
+                />
               </HStack>
-            </MenuItem>
-          ))}
-        </MenuList>
+            </MenuButton>
+            <MenuList
+              bg="orange.50"
+              borderColor="orange.200"
+              boxShadow="xl"
+              py={2}
+              px={1}
+              minW="auto"
+              w="fit-content"
+              borderRadius="lg"
+              overflow="hidden"
+            >
+              {languageOptions.map(({ code, label }) => (
+                <MenuItem
+                  key={code}
+                  onClick={() => {
+                    if (locale !== code) {
+                      setLocale(code as Locale);
+                    }
+                  }}
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  gap={4}
+                  px={4}
+                  py={2}
+                  fontWeight="semibold"
+                  letterSpacing="widest"
+                  color={locale === code ? "brand.600" : "gray.700"}
+                  bg={locale === code ? "orange.100" : "transparent"}
+                  aria-label={label}
+                  _hover={{ bg: "orange.100", color: "brand.600" }}
+                  _focus={{ bg: "orange.200", color: "brand.600" }}
+                >
+                  <Text fontWeight="semibold">{localeIcon[code as Locale]}</Text>
+                  {locale === code && <CheckIcon boxSize={3} color="brand.500" />}
+                </MenuItem>
+              ))}
+            </MenuList>
+          </>
+        )}
       </Menu>
     );
   };
@@ -200,22 +227,33 @@ const NavigationBar = () => {
           <LanguageSwitcher variant="desktop" />
         </Box>
 
-        <Button
-          display={{ base: "inline-flex", md: "none" }}
-          onClick={onToggle}
-          variant="ghost"
-          size="sm"
-          px={4}
-          py={2}
-          borderRadius="full"
-          gap={2}
-          aria-label={isOpen ? navigation.closeMenuLabel : navigation.openMenuLabel}
-        >
-          {isOpen ? <CloseIcon boxSize={3} /> : <HamburgerIcon boxSize={4} />}
-          <Text fontSize="xs" fontWeight="bold" letterSpacing="widest">
-            {isOpen ? navigation.close : navigation.menu}
-          </Text>
-        </Button>
+        <HStack spacing={2} display={{ base: "flex", md: "none" }}>
+          <IconButton
+            onClick={onToggle}
+            aria-label={isOpen ? navigation.closeMenuLabel : navigation.openMenuLabel}
+            size="md"
+            borderRadius="full"
+            bg={isOpen ? "brand.500" : "white"}
+            color={isOpen ? "white" : "brand.600"}
+            borderWidth="1px"
+            borderColor={isOpen ? "brand.500" : "orange.200"}
+            boxShadow="lg"
+            transition="all 0.2s ease"
+            _hover={{ bg: isOpen ? "brand.600" : "orange.50" }}
+            _active={{ bg: isOpen ? "brand.600" : "orange.100" }}
+            icon={
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                transition="transform 0.2s ease"
+                transform={isOpen ? "rotate(180deg)" : "rotate(0deg)"}
+              >
+                {isOpen ? <CloseIcon boxSize={3.5} /> : <HamburgerIcon boxSize={4} />}
+              </Box>
+            }
+          />
+        </HStack>
       </Flex>
 
       <Slide direction="top" in={isOpen} style={{ zIndex: 1400, top: "64px" }} unmountOnExit>
@@ -227,12 +265,11 @@ const NavigationBar = () => {
           minH="calc(100vh - 64px)"
           display={{ base: "block", md: "none" }}
         >
-          <Stack spacing={10}
->
+          <Stack spacing={10}>
             {renderLinks("column")}
-            <Box>
-              <LanguageSwitcher variant="mobile" />
-            </Box>
+            <Flex justify="flex-end">
+              <LanguageSwitcher variant="mobileSheet" />
+            </Flex>
           </Stack>
         </Box>
       </Slide>
