@@ -1,4 +1,4 @@
-import { CheckIcon, ChevronDownIcon, CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
+﻿import { CheckIcon, ChevronDownIcon, CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -120,6 +120,7 @@ const NavigationBar = () => {
           variant={isDesktop ? "ghost" : "primary"}
           size="sm"
           px={isDesktop ? 3 : 4}
+          w={isDesktop ? undefined : "full"}
           rightIcon={<ChevronDownIcon boxSize={3} />}
           fontWeight="semibold"
           letterSpacing="wider"
@@ -130,8 +131,8 @@ const NavigationBar = () => {
             {localeIcon[locale]}
           </Text>
         </MenuButton>
-        <MenuList bg="white" borderColor="orange.200" boxShadow="xl" py={2}>
-          {languageOptions.map(({ code, label }) => (
+        <MenuList bg="white" borderColor="orange.200" boxShadow="xl" py={1}>
+          {languageOptions.map(({ code }) => (
             <MenuItem
               key={code}
               onClick={() => {
@@ -147,13 +148,12 @@ const NavigationBar = () => {
               _hover={{ bg: "orange.50" }}
               _focus={{ bg: "orange.100" }}
             >
-              <Text fontWeight="semibold" letterSpacing="widest" w={8}>
-                {localeIcon[code as Locale]}
-              </Text>
-              <Text flex="1" fontSize="sm">
-                {label}
-              </Text>
-              {locale === code && <CheckIcon boxSize={3} color="brand.500" />}
+              <HStack w="full" justify="space-between">
+                <Text fontWeight="semibold" letterSpacing="widest">
+                  {localeIcon[code as Locale]}
+                </Text>
+                {locale === code && <CheckIcon boxSize={3} color="brand.500" />}
+              </HStack>
             </MenuItem>
           ))}
         </MenuList>
@@ -203,13 +203,12 @@ const NavigationBar = () => {
         <Button
           display={{ base: "inline-flex", md: "none" }}
           onClick={onToggle}
-          variant="primary"
+          variant="ghost"
           size="sm"
           px={4}
           py={2}
           borderRadius="full"
           gap={2}
-          boxShadow="md"
           aria-label={isOpen ? navigation.closeMenuLabel : navigation.openMenuLabel}
         >
           {isOpen ? <CloseIcon boxSize={3} /> : <HamburgerIcon boxSize={4} />}
@@ -228,11 +227,12 @@ const NavigationBar = () => {
           minH="calc(100vh - 64px)"
           display={{ base: "block", md: "none" }}
         >
-          <Stack spacing={8} align="stretch">
-            <HStack justify="flex-end">
-              <LanguageSwitcher variant="mobile" />
-            </HStack>
+          <Stack spacing={10}
+>
             {renderLinks("column")}
+            <Box>
+              <LanguageSwitcher variant="mobile" />
+            </Box>
           </Stack>
         </Box>
       </Slide>
