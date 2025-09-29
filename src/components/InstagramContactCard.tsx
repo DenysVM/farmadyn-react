@@ -2,8 +2,8 @@ import { useMemo } from "react";
 import {
   AspectRatio,
   Box,
-  Button,
   Image,
+  Link,
   ListItem,
   Modal,
   ModalBody,
@@ -13,7 +13,7 @@ import {
   ModalOverlay,
   Stack,
   Text,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import { resolveAssetPath } from "../utils/assetPath";
 
@@ -36,48 +36,33 @@ const InstagramContactCard = ({
   qrImageSrc,
   qrImageAlt,
   modalTitle,
-  modalSubtitle
+  modalSubtitle,
 }: InstagramContactCardProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const qrSrc = useMemo(() => resolveAssetPath(qrImageSrc), [qrImageSrc]);
-  const focusRingStyles = { boxShadow: "0 0 0 3px rgba(237, 137, 54, 0.45)", outline: "none" } as const;
+  const focusRingStyles = {
+    boxShadow: "0 0 0 3px rgba(237, 137, 54, 0.45)",
+    outline: "none",
+  } as const;
 
-  if (!href || !qrImageSrc) {
-    return null;
-  }
-
-  const openProfile = () => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    window.open(href, "_blank", "noopener,noreferrer");
-  };
+  if (!href || !qrImageSrc) return null;
 
   return (
     <>
-      <ListItem fontSize={{ base: "sm", md: "md" }} color="gray.700" display="list-item">
-        <Button
-          variant="unstyled"
-          onClick={onOpen}
-          display="inline-flex"
-          alignItems="center"
-          gap={{ base: 2, sm: 3 }}
-          px={0}
-          py={0.5}
-          color="inherit"
-          _hover={{ color: "brand.600" }}
-          _focusVisible={focusRingStyles}
-        >
-          <Text noOfLines={1}>
-            {title}
-            {username && (
-              <Text as="span" ml={1.5} color="gray.500">
-                @{username}
-              </Text>
-            )}
-          </Text>
-        </Button>
+      <ListItem fontSize={{ base: "sm", md: "md" }} color="gray.700">
+        <Text as="span">
+          {title}{" "}
+          <Link
+            onClick={onOpen}
+            color="brand.600"
+            fontWeight="medium"
+            _hover={{ textDecoration: "underline" }}
+            _focusVisible={focusRingStyles}
+            cursor="pointer"
+          >
+            @{username}
+          </Link>
+        </Text>
       </ListItem>
 
       <Modal isOpen={isOpen} onClose={onClose} size="sm" isCentered>
@@ -91,7 +76,12 @@ const InstagramContactCard = ({
           boxShadow="xl"
         >
           <ModalCloseButton color="gray.500" _focusVisible={focusRingStyles} />
-          <ModalHeader textAlign="center" fontSize="lg" fontWeight="semibold" pb={2}>
+          <ModalHeader
+            textAlign="center"
+            fontSize="lg"
+            fontWeight="semibold"
+            pb={2}
+          >
             {modalTitle}
           </ModalHeader>
           <ModalBody pt={2}>
@@ -101,7 +91,7 @@ const InstagramContactCard = ({
                   as="button"
                   type="button"
                   onClick={() => {
-                    openProfile();
+                    window.open(href, "_blank", "noopener,noreferrer");
                     onClose();
                   }}
                   borderRadius="2xl"
@@ -114,7 +104,13 @@ const InstagramContactCard = ({
                   aria-label={linkLabel}
                   _focusVisible={focusRingStyles}
                 >
-                  <Image src={qrSrc} alt={qrImageAlt} w="100%" h="100%" objectFit="cover" />
+                  <Image
+                    src={qrSrc}
+                    alt={qrImageAlt}
+                    w="100%"
+                    h="100%"
+                    objectFit="cover"
+                  />
                 </Box>
               </AspectRatio>
 

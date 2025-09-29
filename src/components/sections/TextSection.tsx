@@ -18,7 +18,7 @@ import {
   ModalOverlay,
   Stack,
   Text,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import InstagramContactCard from "../InstagramContactCard";
 import { resolveAssetPath } from "../../utils/assetPath";
@@ -51,7 +51,6 @@ type ModalVideoAction = {
 type InstagramCardAction = {
   type: "instagramCard";
   title: string;
-  description?: string;
   href: string;
   username?: string;
   linkLabel: string;
@@ -61,7 +60,11 @@ type InstagramCardAction = {
   modalSubtitle?: string;
 };
 
-type SectionAction = LinkAction | ModalImageAction | ModalVideoAction | InstagramCardAction;
+type SectionAction =
+  | LinkAction
+  | ModalImageAction
+  | ModalVideoAction
+  | InstagramCardAction;
 
 interface TextSectionProps {
   title?: string;
@@ -70,78 +73,77 @@ interface TextSectionProps {
   actions?: SectionAction[];
 }
 
-const TextSection = ({ title, paragraphs = [], list, actions = [] }: TextSectionProps) => {
-  const [activeImageAction, setActiveImageAction] = useState<ModalImageAction | null>(null);
-  const [activeVideoAction, setActiveVideoAction] = useState<ModalVideoAction | null>(null);
+const TextSection = ({
+  title,
+  paragraphs = [],
+  list = [],
+  actions = [],
+}: TextSectionProps) => {
+  const [activeImageAction, setActiveImageAction] =
+    useState<ModalImageAction | null>(null);
+  const [activeVideoAction, setActiveVideoAction] =
+    useState<ModalVideoAction | null>(null);
+
   const {
     isOpen: isImageOpen,
     onOpen: onImageOpen,
-    onClose: onImageClose
+    onClose: onImageClose,
   } = useDisclosure();
   const {
     isOpen: isVideoOpen,
     onOpen: onVideoOpen,
-    onClose: onVideoClose
+    onClose: onVideoClose,
   } = useDisclosure();
 
-  const openImageModal = (action: ModalImageAction) => {
-    setActiveImageAction(action);
-    onImageOpen();
-  };
-
-  const closeImageModal = () => {
-    onImageClose();
-    setActiveImageAction(null);
-  };
-
-  const openVideoModal = (action: ModalVideoAction) => {
-    setActiveVideoAction(action);
-    onVideoOpen();
-  };
-
-  const closeVideoModal = () => {
-    onVideoClose();
-    setActiveVideoAction(null);
-  };
-
   const modalImageActions = actions.filter(
-    (action): action is ModalImageAction => action.type === "modalImage"
+    (a): a is ModalImageAction => a.type === "modalImage"
   );
   const videoActions = actions.filter(
-    (action): action is ModalVideoAction => action.type === "videoPreview"
+    (a): a is ModalVideoAction => a.type === "videoPreview"
   );
   const instagramActions = actions.filter(
-    (action): action is InstagramCardAction => action.type === "instagramCard"
+    (a): a is InstagramCardAction => a.type === "instagramCard"
   );
   const standardActions = actions.filter(
-    (action): action is LinkAction | ModalImageAction =>
-      action.type === "link" || action.type === "modalImage"
+    (a): a is LinkAction | ModalImageAction =>
+      a.type === "link" || a.type === "modalImage"
   );
 
   const hasModalImageAction = modalImageActions.length > 0;
   const hasVideoAction = videoActions.length > 0;
-  const isImageModalVisible = Boolean(activeImageAction && isImageOpen);
-  const isVideoModalVisible = Boolean(activeVideoAction && isVideoOpen);
-  const resolvedModalSrc = activeImageAction ? resolveAssetPath(activeImageAction.imageSrc) : undefined;
+  const isImageModalVisible = !!(activeImageAction && isImageOpen);
+  const isVideoModalVisible = !!(activeVideoAction && isVideoOpen);
+
+  const resolvedModalSrc = activeImageAction
+    ? resolveAssetPath(activeImageAction.imageSrc)
+    : undefined;
   const videoSrc = activeVideoAction
-    ? `${activeVideoAction.videoUrl}${activeVideoAction.videoUrl.includes("?") ? "&" : "?"}autoplay=1`
+    ? `${activeVideoAction.videoUrl}${
+        activeVideoAction.videoUrl.includes("?") ? "&" : "?"
+      }autoplay=1`
     : undefined;
 
   const imageModalTheme = activeImageAction?.modalTheme ?? "dark";
   const imageModalBg = imageModalTheme === "dark" ? "gray.900" : "white";
-  const imageCloseColor = imageModalTheme === "dark" ? "white" : "gray.600";
+  const imageCloseColor =
+    imageModalTheme === "dark" ? "white" : "gray.600";
   const imageBodyBg = imageModalTheme === "dark" ? undefined : "white";
   const imageBodyPadding = imageModalTheme === "dark" ? 0 : 6;
 
-  const focusRingStyles = { boxShadow: "0 0 0 3px rgba(237, 137, 54, 0.35)", outline: "none" } as const;
-  const emailRegex = /[\w.+-]+@[\w-]+\.[\w.-]+/;
-  const phoneRegex = /\+?[\d][\d\s-]{4,}[\d]/;
+  const focusRingStyles = {
+    boxShadow: "0 0 0 3px rgba(237, 137, 54, 0.35)",
+    outline: "none",
+  } as const;
+
+  const emailRegex = /([\w.+-]+@[\w-]+\.[\w.-]+)/;
+ const phoneRegex = /(\+?\d[\d\s-]{4,}\d)/;
 
   const renderContactItem = (item: string) => {
+
     const emailMatch = item.match(emailRegex);
     if (emailMatch) {
       const email = emailMatch[0];
-      const [prefix = "", suffix = ""] = item.split(email);
+      const [prefix, suffix = ""] = item.split(email);
       return (
         <>
           {prefix}
@@ -163,7 +165,7 @@ const TextSection = ({ title, paragraphs = [], list, actions = [] }: TextSection
     if (phoneMatch) {
       const phone = phoneMatch[0];
       const sanitized = phone.replace(/[^+\d]/g, "");
-      const [prefix = "", suffix = ""] = item.split(phone);
+      const [prefix, suffix = ""] = item.split(phone);
       return (
         <>
           {prefix}
@@ -184,13 +186,12 @@ const TextSection = ({ title, paragraphs = [], list, actions = [] }: TextSection
     return item;
   };
 
-  const hasListItems = Array.isArray(list) && list.length > 0;
-  const shouldRenderList = hasListItems || instagramActions.length > 0;
+  const hasList = list.length > 0 || instagramActions.length > 0;
 
   return (
     <>
       <Stack
-        spacing={4}
+        spacing={2}
         bg="white"
         borderRadius="2xl"
         boxShadow="lg"
@@ -202,52 +203,41 @@ const TextSection = ({ title, paragraphs = [], list, actions = [] }: TextSection
           </Heading>
         )}
 
-        {paragraphs.map((text, index) => (
-          <Text key={`${text}-${index}`} color="gray.700" fontSize={{ base: "sm", md: "md" }}>
-            {text}
+        {paragraphs.map((t, i) => (
+          <Text key={i} color="gray.700" fontSize={{ base: "sm", md: "md" }}>
+            {t}
           </Text>
         ))}
 
-        {shouldRenderList && (
-          <List spacing={3} styleType="disc" pl={5} color="gray.700">
-            {hasListItems &&
-              list?.map((item, index) => (
-                <ListItem key={`${item}-${index}`}>{renderContactItem(item)}</ListItem>
-              ))}
-
-            {instagramActions.map((action, index) => (
-              <InstagramContactCard
-                key={`${action.type}-${action.href}-${index}`}
-                title={action.title}
-                href={action.href}
-                username={action.username}
-                linkLabel={action.linkLabel}
-                qrImageSrc={action.qrImageSrc}
-                qrImageAlt={action.qrImageAlt}
-                modalTitle={action.modalTitle}
-                modalSubtitle={action.modalSubtitle}
-              />
+        {hasList && (
+          <List spacing={2} styleType="disc" pl={5} color="gray.700">
+            {list.map((item, i) => (
+              <ListItem key={i}>{renderContactItem(item)}</ListItem>
+            ))}
+            {instagramActions.map((action, i) => (
+              <InstagramContactCard key={i} {...action} />
             ))}
           </List>
         )}
 
-        {videoActions.length > 0 && (
-          <Stack spacing={3} pt={shouldRenderList ? 2 : 0}>
-            {videoActions.map((action, index) => {
+        {hasVideoAction && (
+          <Stack spacing={3} pt={hasList ? 2 : 0}>
+            {videoActions.map((action, i) => {
               const previewSrc = resolveAssetPath(action.previewImage);
-
               return (
                 <Button
-                  key={`${action.type}-${action.label}-${index}`}
+                  key={i}
                   variant="unstyled"
-                  onClick={() => openVideoModal(action)}
+                  onClick={() => setActiveVideoAction(action)}
                   position="relative"
                   w="full"
                   borderRadius="2xl"
                   overflow="hidden"
                   boxShadow="2xl"
                   cursor="pointer"
-                  _focusVisible={{ boxShadow: "0 0 0 3px rgba(237, 137, 54, 0.5)" }}
+                  _focusVisible={{
+                    boxShadow: "0 0 0 3px rgba(237, 137, 54, 0.5)",
+                  }}
                   aria-label={action.label}
                 >
                   <Image
@@ -284,7 +274,11 @@ const TextSection = ({ title, paragraphs = [], list, actions = [] }: TextSection
                     p={{ base: 4, md: 5 }}
                     bgGradient="linear(to-t, rgba(0,0,0,0.75), transparent)"
                   >
-                    <Text color="white" fontWeight="semibold" fontSize={{ base: "md", md: "lg" }}>
+                    <Text
+                      color="white"
+                      fontWeight="semibold"
+                      fontSize={{ base: "md", md: "lg" }}
+                    >
                       {action.label}
                     </Text>
                   </Box>
@@ -302,45 +296,52 @@ const TextSection = ({ title, paragraphs = [], list, actions = [] }: TextSection
             justifyContent="flex-end"
             w="100%"
           >
-            {standardActions.map((action, index) => {
-              if (action.type === "link") {
-                return (
-                  <Button
-                    key={`${action.type}-${action.label}-${index}`}
-                    as="a"
-                    href={action.href}
-                    target={action.isExternal ? "_blank" : undefined}
-                    rel={action.isExternal ? "noopener noreferrer" : undefined}
-                    variant="primary"
-                    w={{ base: "full", md: "auto" }}
-                    justifyContent="center"
-                  >
-                    {action.label}
-                  </Button>
-                );
-              }
-
-              return (
+            {standardActions.map((action, i) =>
+              action.type === "link" ? (
                 <Button
-                  key={`${action.type}-${action.label}-${index}`}
-                  onClick={() => openImageModal(action)}
+                  key={i}
+                  as="a"
+                  href={action.href}
+                  target={action.isExternal ? "_blank" : undefined}
+                  rel={
+                    action.isExternal ? "noopener noreferrer" : undefined
+                  }
+                  variant="primary"
+                  w={{ base: "full", md: "auto" }}
+                  justifyContent="center"
+                >
+                  {action.label}
+                </Button>
+              ) : (
+                <Button
+                  key={i}
+                  onClick={() => setActiveImageAction(action)}
                   variant="secondary"
                   w={{ base: "full", md: "auto" }}
                   justifyContent="center"
                 >
                   {action.label}
                 </Button>
-              );
-            })}
+              )
+            )}
           </HStack>
         )}
       </Stack>
 
       {hasModalImageAction && (
-        <Modal isOpen={isImageModalVisible} onClose={closeImageModal} size="4xl" isCentered>
+        <Modal
+          isOpen={isImageModalVisible}
+          onClose={onImageClose}
+          size="4xl"
+          isCentered
+        >
           <ModalOverlay />
-          <ModalContent bg={imageModalBg} borderRadius="3xl" boxShadow="3xl">
-            <ModalCloseButton color={imageCloseColor} _focusVisible={{ boxShadow: "0 0 0 3px rgba(237, 137, 54, 0.35)" }} />
+          <ModalContent
+            bg={imageModalBg}
+            borderRadius="3xl"
+            boxShadow="3xl"
+          >
+            <ModalCloseButton color={imageCloseColor} />
             <ModalBody
               p={imageBodyPadding}
               bg={imageBodyBg}
@@ -365,7 +366,12 @@ const TextSection = ({ title, paragraphs = [], list, actions = [] }: TextSection
       )}
 
       {hasVideoAction && (
-        <Modal isOpen={isVideoModalVisible} onClose={closeVideoModal} size="5xl" isCentered>
+        <Modal
+          isOpen={isVideoModalVisible}
+          onClose={onVideoClose}
+          size="5xl"
+          isCentered
+        >
           <ModalOverlay />
           <ModalContent bg="black">
             <ModalCloseButton color="white" />

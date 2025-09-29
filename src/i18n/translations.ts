@@ -239,16 +239,8 @@ export const translations: Record<Locale, TranslationShape> = {
             "Telefon: 883 920 388",
             "Biuro: 506 441 403",
             "E-mail: biuro@farmadyn.pl"
-          ]
-        },
-        {
-          title: "Godziny otwarcia",
-          paragraphs: [
-            "Sezon: 6 września – 31 października 2025",
-            "Codziennie od 09:00 do 18:00",
-            "Zapytania dotyczące rezerwacji grupowych przyjmujemy przez cały rok drogą mailową"
           ],
-          actions: [
+                    actions: [
             {
               type: "instagramCard",
               title: "Instagram",
@@ -261,6 +253,15 @@ export const translations: Record<Locale, TranslationShape> = {
               modalSubtitle: "Nie możesz zeskanować? Dotknij kod, aby otworzyć profil."
             }
           ]
+        },
+        {
+          title: "Godziny otwarcia",
+          paragraphs: [
+            "Sezon: 6 września – 31 października 2025",
+            "Codziennie od 09:00 do 18:00",
+            "Zapytania dotyczące rezerwacji grupowych przyjmujemy przez cały rok drogą mailową"
+          ],
+
         }
       ]
     },
