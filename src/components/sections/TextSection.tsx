@@ -95,6 +95,24 @@ const TextSection = ({
     onClose: onVideoClose,
   } = useDisclosure();
 
+  // helpers (вернули корректный вызов open/close)
+  const openImage = (a: ModalImageAction) => {
+    setActiveImageAction(a);
+    onImageOpen();
+  };
+  const closeImage = () => {
+    onImageClose();
+    setActiveImageAction(null);
+  };
+  const openVideo = (a: ModalVideoAction) => {
+    setActiveVideoAction(a);
+    onVideoOpen();
+  };
+  const closeVideo = () => {
+    onVideoClose();
+    setActiveVideoAction(null);
+  };
+
   const modalImageActions = actions.filter(
     (a): a is ModalImageAction => a.type === "modalImage"
   );
@@ -117,6 +135,7 @@ const TextSection = ({
   const resolvedModalSrc = activeImageAction
     ? resolveAssetPath(activeImageAction.imageSrc)
     : undefined;
+
   const videoSrc = activeVideoAction
     ? `${activeVideoAction.videoUrl}${
         activeVideoAction.videoUrl.includes("?") ? "&" : "?"
@@ -125,8 +144,7 @@ const TextSection = ({
 
   const imageModalTheme = activeImageAction?.modalTheme ?? "dark";
   const imageModalBg = imageModalTheme === "dark" ? "gray.900" : "white";
-  const imageCloseColor =
-    imageModalTheme === "dark" ? "white" : "gray.600";
+  const imageCloseColor = imageModalTheme === "dark" ? "white" : "gray.600";
   const imageBodyBg = imageModalTheme === "dark" ? undefined : "white";
   const imageBodyPadding = imageModalTheme === "dark" ? 0 : 6;
 
@@ -136,10 +154,9 @@ const TextSection = ({
   } as const;
 
   const emailRegex = /([\w.+-]+@[\w-]+\.[\w.-]+)/;
- const phoneRegex = /(\+?\d[\d\s-]{4,}\d)/;
+  const phoneRegex = /(\+?\d[\d\s-]{4,}\d)/;
 
   const renderContactItem = (item: string) => {
-
     const emailMatch = item.match(emailRegex);
     if (emailMatch) {
       const email = emailMatch[0];
@@ -228,7 +245,7 @@ const TextSection = ({
                 <Button
                   key={i}
                   variant="unstyled"
-                  onClick={() => setActiveVideoAction(action)}
+                  onClick={() => openVideo(action)}
                   position="relative"
                   w="full"
                   borderRadius="2xl"
@@ -303,10 +320,8 @@ const TextSection = ({
                   as="a"
                   href={action.href}
                   target={action.isExternal ? "_blank" : undefined}
-                  rel={
-                    action.isExternal ? "noopener noreferrer" : undefined
-                  }
-                  variant="primary"
+                  rel={action.isExternal ? "noopener noreferrer" : undefined}
+                  variant="pill"
                   w={{ base: "full", md: "auto" }}
                   justifyContent="center"
                 >
@@ -315,8 +330,8 @@ const TextSection = ({
               ) : (
                 <Button
                   key={i}
-                  onClick={() => setActiveImageAction(action)}
-                  variant="secondary"
+                  onClick={() => openImage(action)}
+                  variant="pill"
                   w={{ base: "full", md: "auto" }}
                   justifyContent="center"
                 >
@@ -331,16 +346,12 @@ const TextSection = ({
       {hasModalImageAction && (
         <Modal
           isOpen={isImageModalVisible}
-          onClose={onImageClose}
+          onClose={closeImage}
           size="4xl"
           isCentered
         >
           <ModalOverlay />
-          <ModalContent
-            bg={imageModalBg}
-            borderRadius="3xl"
-            boxShadow="3xl"
-          >
+          <ModalContent bg={imageModalBg} borderRadius="3xl" boxShadow="3xl">
             <ModalCloseButton color={imageCloseColor} />
             <ModalBody
               p={imageBodyPadding}
@@ -368,7 +379,7 @@ const TextSection = ({
       {hasVideoAction && (
         <Modal
           isOpen={isVideoModalVisible}
-          onClose={onVideoClose}
+          onClose={closeVideo}
           size="5xl"
           isCentered
         >

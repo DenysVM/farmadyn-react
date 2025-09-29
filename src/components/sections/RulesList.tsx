@@ -46,9 +46,10 @@ const RulesList = ({ title, items, showAllLabel, collapseLabel }: RulesListProps
       {items.length > 1 && (
         <Button
           onClick={handleToggle}
-          variant="outline"
+          variant="pill"
           colorScheme="orange"
-          alignSelf="flex-start"
+          w={{ base: "full", md: "auto" }}
+          alignSelf="flex-end"
           _focusVisible={{ boxShadow: "0 0 0 3px rgba(237, 137, 54, 0.35)", outline: "none" }}
         >
           {isExpanded ? collapseLabel : showAllLabel}
