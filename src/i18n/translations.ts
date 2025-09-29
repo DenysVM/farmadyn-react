@@ -11,8 +11,31 @@ type SectionModalImageAction = {
   label: string;
   imageSrc: string;
   imageAlt: string;
+  modalTheme?: "dark" | "light";
+  imageBorderRadius?: string;
+  imageMaxWidth?: string;
 };
-type SectionAction = SectionLinkAction | SectionModalImageAction;
+type SectionModalVideoAction = {
+  type: "videoPreview";
+  label: string;
+  videoUrl: string;
+  previewImage: string;
+  previewAlt: string;
+};
+
+type SectionInstagramCardAction = {
+  type: "instagramCard";
+  title: string;
+  description?: string;
+  href: string;
+  username?: string;
+  linkLabel: string;
+  qrImageSrc: string;
+  qrImageAlt: string;
+  modalTitle: string;
+  modalSubtitle?: string;
+};
+type SectionAction = SectionLinkAction | SectionModalImageAction | SectionModalVideoAction | SectionInstagramCardAction;
 interface SectionContent {
   title: string;
   paragraphs?: string[];
@@ -48,6 +71,10 @@ interface HomeTranslations {
   rules: {
     title: string;
     items: string[];
+    toggle: {
+      showAll: string;
+      collapse: string;
+    };
   };
 }
 interface ContactTranslations {
@@ -167,6 +194,15 @@ export const translations: Record<Locale, TranslationShape> = {
             "Organizujemy przyjęcia urodzinowe, spotkania firmowe i wydarzenia okolicznościowe na terenie farmy.",
             "Pakiety zaczynają się od 69 PLN za dziecko i 39 PLN za osobę dorosłą. Minimalna kwota rezerwacji wynosi 990 PLN.",
             "Skontaktuj się z nami telefonicznie pod numerami 692 992 589 lub 883 920 388, albo napisz na adres biuro@farmadyn.pl."
+          ],
+          actions: [
+            {
+              type: "videoPreview",
+              label: "Zobacz wideo wizytówkę",
+              videoUrl: "https://www.youtube.com/embed/8ZHKdj4TUv8",
+              previewImage: "images/atrakcje-video-preview.jpg",
+              previewAlt: "Kadr z wideo prezentującego atrakcje farmy"
+            }
           ]
         }
       ],
@@ -181,7 +217,11 @@ export const translations: Record<Locale, TranslationShape> = {
           "W labiryncie ze słomy nie przewracamy balotów.",
           "Huśtamy się ostrożnie, dzieci na trampolinie bawią się без butów, tyrolka jest для osób do 65 kg, w strefie Nerf obowiązują okulary ochronne.",
           "Trawy ozdobne mogą być ostre – dbamy o dłonie własne i dzieci. Niestosowanie się do zaleceń obsługi może skutkować opuszczeniem obiektu."
-        ]
+        ],
+        toggle: {
+          showAll: "Pokaż wszystkie zasady",
+          collapse: "Zwiń do pierwszej zasady"
+        }
       }
     },
     contact: {
@@ -207,6 +247,19 @@ export const translations: Record<Locale, TranslationShape> = {
             "Sezon: 6 września – 31 października 2025",
             "Codziennie od 09:00 do 18:00",
             "Zapytania dotyczące rezerwacji grupowych przyjmujemy przez cały rok drogą mailową"
+          ],
+          actions: [
+            {
+              type: "instagramCard",
+              title: "Instagram",
+              href: "https://www.instagram.com/farmadyn.pl",
+              username: "farmadyn.pl",
+              linkLabel: "Otwórz profil",
+              qrImageSrc: "images/farmadyn.pl_qr.png",
+              qrImageAlt: "Kod QR do profilu Instagram Farmadyn",
+              modalTitle: "Zeskanuj kod QR",
+              modalSubtitle: "Nie możesz zeskanować? Dotknij kod, aby otworzyć profil."
+            }
           ]
         }
       ]
@@ -356,6 +409,15 @@ export const translations: Record<Locale, TranslationShape> = {
             "Celebrate birthdays, company outings or seasonal gatherings on the farm.",
             "Packages start at 69 PLN per child and 39 PLN per adult with a minimum spend of 990 PLN.",
             "Call 692 992 589 or 883 920 388, or email biuro@farmadyn.pl to tailor the experience for your group."
+          ],
+          actions: [
+            {
+              type: "videoPreview",
+              label: "Watch the video tour",
+              videoUrl: "https://www.youtube.com/embed/8ZHKdj4TUv8",
+              previewImage: "images/atrakcje-video-preview.jpg",
+              previewAlt: "Video still showing attractions at the pumpkin farm"
+            }
           ]
         }
       ],
@@ -370,7 +432,11 @@ export const translations: Record<Locale, TranslationShape> = {
           "Do not topple the straw in the maze.",
           "Swing carefully, keep shoes off on the trampoline, the zip line is for children up to 65 kg, and safety glasses are required in the Nerf zone.",
           "Decorative grasses can be sharp – protect your hands and follow staff instructions to keep the farm safe for everyone."
-        ]
+        ],
+        toggle: {
+          showAll: "Show all rules",
+          collapse: "Collapse to first rule"
+        }
       }
     },
     contact: {
@@ -396,6 +462,19 @@ export const translations: Record<Locale, TranslationShape> = {
             "Season: 6 September – 31 October 2025",
             "Open daily 09:00-18:00",
             "We answer group reservation enquiries year-round via email"
+          ],
+          actions: [
+            {
+              type: "instagramCard",
+              title: "Instagram",
+              href: "https://www.instagram.com/farmadyn.pl",
+              username: "farmadyn.pl",
+              linkLabel: "Open profile",
+              qrImageSrc: "images/farmadyn.pl_qr.png",
+              qrImageAlt: "Instagram QR code for Farmadyn",
+              modalTitle: "Scan the QR code",
+              modalSubtitle: "Can't scan? Tap the code to open the profile."
+            }
           ]
         }
       ]

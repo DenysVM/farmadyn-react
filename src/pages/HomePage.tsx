@@ -20,7 +20,12 @@ const HomePage = () => {
       {home.sections.map((section) => (
         <TextSection key={section.title} {...section} />
       ))}
-      <RulesList title={home.rules.title} items={home.rules.items} />
+      <RulesList
+        title={home.rules.title}
+        items={home.rules.items}
+        showAllLabel={home.rules.toggle.showAll}
+        collapseLabel={home.rules.toggle.collapse}
+      />
     </Page>
   );
 };
