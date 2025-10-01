@@ -15,15 +15,14 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { resolveAssetPath } from "../utils/assetPath";
+import { QRCodeCanvas } from "qrcode.react";
+import { useToken } from "@chakra-ui/react";
 
 interface InstagramContactCardProps {
   title: string;
   href: string;
   username?: string;
   linkLabel: string;
-  qrImageSrc: string;
-  qrImageAlt: string;
   modalTitle: string;
   modalSubtitle?: string;
 }
@@ -33,19 +32,16 @@ const InstagramContactCard = ({
   href,
   username,
   linkLabel,
-  qrImageSrc,
-  qrImageAlt,
   modalTitle,
   modalSubtitle,
 }: InstagramContactCardProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const qrSrc = useMemo(() => resolveAssetPath(qrImageSrc), [qrImageSrc]);
   const focusRingStyles = {
     boxShadow: "0 0 0 3px rgba(237, 137, 54, 0.45)",
     outline: "none",
   } as const;
-
-  if (!href || !qrImageSrc) return null;
+  const brand50 = useToken("colors", "brand.50");
+  if (!href) return null;
 
   return (
     <>
@@ -68,7 +64,7 @@ const InstagramContactCard = ({
       <Modal isOpen={isOpen} onClose={onClose} size="sm" isCentered>
         <ModalOverlay backdropFilter="blur(4px)" bg="blackAlpha.200" />
         <ModalContent
-          bg="white"
+          bg="brand.50"
           color="gray.800"
           borderRadius="2xl"
           px={{ base: 5, sm: 6 }}
@@ -104,12 +100,21 @@ const InstagramContactCard = ({
                   aria-label={linkLabel}
                   _focusVisible={focusRingStyles}
                 >
-                  <Image
-                    src={qrSrc}
-                    alt={qrImageAlt}
-                    w="100%"
-                    h="100%"
-                    objectFit="cover"
+                  <QRCodeCanvas
+                    value={href}
+                    size={260}
+                    bgColor={brand50}
+                    fgColor="#000000"
+                    level="H"
+                    includeMargin={false}
+                    imageSettings={{
+                      src: "/images/pumpkin.png",
+                      x: undefined,
+                      y: undefined,
+                      height: 80,
+                      width: 80,
+                      excavate: true,
+                    }}
                   />
                 </Box>
               </AspectRatio>
