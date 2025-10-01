@@ -80,7 +80,7 @@ const theme = extendTheme({
           letterSpacing: "widest",
           textTransform: "uppercase",
           transition: "all 0.2s ease",
-          _hover: { bg: "orange.100", borderColor: "orange.300" },
+          _hover: { bg: "orange.100", borderColor: "orange.300"},
           _active: { bg: "orange.100" },
           _focusVisible: { boxShadow: "0 0 0 3px rgba(237,137,54,0.35)" },
         },

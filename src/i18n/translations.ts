@@ -170,6 +170,15 @@ export const translations: Record<Locale, TranslationShape> = {
             "Strefa gastro z kawą, herbatą, frytkami, ciastem dyniowym i zupą dyniową.",
             "Mini zoo z alpakami, kozami, królikami, gęsiami, indykami i kurami.",
             "Piramidy ze słomy, tyrolka o długości 70 metrów, huśtawki, trampoliny, labirynt, dmuchane zjeżdżalnie, strefa Nerf i gokarty na pedały."
+          ],
+          actions: [
+            {
+              type: "videoPreview",
+              label: "Zobacz wideo wizytówkę",
+              videoUrl: "https://www.youtube.com/embed/8ZHKdj4TUv8",
+              previewImage: "images/atrakcje-video-preview.jpg",
+              previewAlt: "Kadr z wideo prezentującego atrakcje farmy"
+            }
           ]
         },
         {
@@ -194,15 +203,6 @@ export const translations: Record<Locale, TranslationShape> = {
             "Organizujemy przyjęcia urodzinowe, spotkania firmowe i wydarzenia okolicznościowe na terenie farmy.",
             "Pakiety zaczynają się od 69 PLN za dziecko i 39 PLN za osobę dorosłą. Minimalna kwota rezerwacji wynosi 990 PLN.",
             "Skontaktuj się z nami telefonicznie pod numerami 692 992 589 lub 883 920 388, albo napisz na adres biuro@farmadyn.pl."
-          ],
-          actions: [
-            {
-              type: "videoPreview",
-              label: "Zobacz wideo wizytówkę",
-              videoUrl: "https://www.youtube.com/embed/8ZHKdj4TUv8",
-              previewImage: "images/atrakcje-video-preview.jpg",
-              previewAlt: "Kadr z wideo prezentującego atrakcje farmy"
-            }
           ]
         }
       ],
@@ -240,7 +240,7 @@ export const translations: Record<Locale, TranslationShape> = {
             "Biuro: 506 441 403",
             "E-mail: biuro@farmadyn.pl"
           ],
-                    actions: [
+          actions: [
             {
               type: "instagramCard",
               title: "Instagram",
@@ -386,6 +386,15 @@ export const translations: Record<Locale, TranslationShape> = {
             "Food court with coffee, tea, fries, pumpkin cake and pumpkin soup.",
             "A mini zoo with alpacas, goats, rabbits, geese, turkeys and hens.",
             "Straw pyramids, a 70 m zip line, swings, trampolines, a straw maze, inflatable slides, a Nerf arena and pedal go-karts."
+          ],
+          actions: [
+            {
+              type: "videoPreview",
+              label: "Watch the video tour",
+              videoUrl: "https://www.youtube.com/embed/8ZHKdj4TUv8",
+              previewImage: "images/atrakcje-video-preview.jpg",
+              previewAlt: "Video still showing attractions at the pumpkin farm"
+            }
           ]
         },
         {
@@ -410,15 +419,6 @@ export const translations: Record<Locale, TranslationShape> = {
             "Celebrate birthdays, company outings or seasonal gatherings on the farm.",
             "Packages start at 69 PLN per child and 39 PLN per adult with a minimum spend of 990 PLN.",
             "Call 692 992 589 or 883 920 388, or email biuro@farmadyn.pl to tailor the experience for your group."
-          ],
-          actions: [
-            {
-              type: "videoPreview",
-              label: "Watch the video tour",
-              videoUrl: "https://www.youtube.com/embed/8ZHKdj4TUv8",
-              previewImage: "images/atrakcje-video-preview.jpg",
-              previewAlt: "Video still showing attractions at the pumpkin farm"
-            }
           ]
         }
       ],

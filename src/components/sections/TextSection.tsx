@@ -244,60 +244,38 @@ const TextSection = ({
               return (
                 <Button
                   key={i}
-                  variant="unstyled"
-                  onClick={() => openVideo(action)}
+                  variant="pill"
+                  w={{ base: "100%", md: "70%" }}
+                  mx="auto"
+                  p={0}
                   position="relative"
-                  w="full"
-                  borderRadius="2xl"
                   overflow="hidden"
-                  boxShadow="2xl"
-                  cursor="pointer"
-                  _focusVisible={{
-                    boxShadow: "0 0 0 3px rgba(237, 137, 54, 0.5)",
-                  }}
+                  bgImage={`url(${previewSrc})`}
+                  bgSize="cover"
+                  bgPos="center"
                   aria-label={action.label}
+                  role="group"
+                  onClick={(e) => {
+                    openVideo(action);
+                    (e.currentTarget as HTMLButtonElement).blur(); // опционально: вернуть цвет текста после клика
+                  }}
                 >
-                  <Image
-                    src={previewSrc}
-                    alt={action.previewAlt}
-                    w="full"
-                    h={{ base: "220px", md: "260px" }}
-                    objectFit="cover"
-                  />
                   <Box
                     position="absolute"
                     inset={0}
-                    bgGradient="linear(to-t, rgba(0,0,0,0.65), rgba(0,0,0,0.2))"
+                    bg="rgba(0,0,0,0.35)"
+                    transition="opacity 0.2s ease"
+                    _groupHover={{ opacity: 0 }}
                   />
-                  <Center position="absolute" inset={0}>
-                    <Center
-                      w={{ base: "56px", md: "64px" }}
-                      h={{ base: "56px", md: "64px" }}
-                      borderRadius="full"
-                      bg="whiteAlpha.900"
-                      color="brand.500"
-                      boxShadow="lg"
-                    >
-                      <Icon viewBox="0 0 24 24" boxSize={{ base: 6, md: 7 }}>
-                        <path fill="currentColor" d="M8 5v14l11-7z" />
-                      </Icon>
-                    </Center>
-                  </Center>
                   <Box
-                    position="absolute"
-                    bottom={0}
-                    left={0}
-                    right={0}
-                    p={{ base: 4, md: 5 }}
-                    bgGradient="linear(to-t, rgba(0,0,0,0.75), transparent)"
+                    position="relative"
+                    zIndex={1}
+                    fontWeight="semibold"
+                    color="brand.100"
+                    transition="color 0.2s ease"
+                    _groupHover={{ color: "brand.600" }}
                   >
-                    <Text
-                      color="white"
-                      fontWeight="semibold"
-                      fontSize={{ base: "md", md: "lg" }}
-                    >
-                      {action.label}
-                    </Text>
+                    {action.label}
                   </Box>
                 </Button>
               );
