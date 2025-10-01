@@ -203,6 +203,13 @@ export const translations: Record<Locale, TranslationShape> = {
             "Organizujemy przyjęcia urodzinowe, spotkania firmowe i wydarzenia okolicznościowe na terenie farmy.",
             "Pakiety zaczynają się od 69 PLN za dziecko i 39 PLN za osobę dorosłą. Minimalna kwota rezerwacji wynosi 990 PLN.",
             "Skontaktuj się z nami telefonicznie pod numerami 692 992 589 lub 883 920 388, albo napisz na adres biuro@farmadyn.pl."
+          ],
+          actions: [
+            {
+              type: "bookingWidget",
+              label: "Zarezerwuj termin",
+              calendarId: "d443761a057b92277e7dfcded1bcc8ca/1"
+            }
           ]
         }
       ],
@@ -419,6 +426,13 @@ export const translations: Record<Locale, TranslationShape> = {
             "Celebrate birthdays, company outings or seasonal gatherings on the farm.",
             "Packages start at 69 PLN per child and 39 PLN per adult with a minimum spend of 990 PLN.",
             "Call 692 992 589 or 883 920 388, or email biuro@farmadyn.pl to tailor the experience for your group."
+          ],
+          actions: [
+            {
+              type: "bookingWidget",
+              label: "Book an event",
+              calendarId: "d443761a057b92277e7dfcded1bcc8ca/1"
+            }
           ]
         }
       ],

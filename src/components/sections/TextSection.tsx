@@ -21,6 +21,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import InstagramContactCard from "../InstagramContactCard";
+import BookingArrayWidget from "../BookingArrayWidget";
 import { resolveAssetPath } from "../../utils/assetPath";
 
 type LinkAction = {
@@ -48,6 +49,12 @@ type ModalVideoAction = {
   previewAlt: string;
 };
 
+type BookingWidgetAction = {
+  type: "bookingWidget";
+  label: string;
+  calendarId: string;
+};
+
 type InstagramCardAction = {
   type: "instagramCard";
   title: string;
@@ -64,6 +71,7 @@ type SectionAction =
   | LinkAction
   | ModalImageAction
   | ModalVideoAction
+  | BookingWidgetAction
   | InstagramCardAction;
 
 interface TextSectionProps {
@@ -118,6 +126,9 @@ const TextSection = ({
   );
   const videoActions = actions.filter(
     (a): a is ModalVideoAction => a.type === "videoPreview"
+  );
+  const bookingActions = actions.filter(
+    (a): a is BookingWidgetAction => a.type === "bookingWidget"
   );
   const instagramActions = actions.filter(
     (a): a is InstagramCardAction => a.type === "instagramCard"
@@ -283,7 +294,7 @@ const TextSection = ({
           </Stack>
         )}
 
-        {standardActions.length > 0 && (
+        {(standardActions.length > 0 || bookingActions.length > 0) && (
           <HStack
             spacing={3}
             pt={1}
@@ -294,7 +305,7 @@ const TextSection = ({
             {standardActions.map((action, i) =>
               action.type === "link" ? (
                 <Button
-                  key={i}
+                  key={`standard-link-${i}`}
                   as="a"
                   href={action.href}
                   target={action.isExternal ? "_blank" : undefined}
@@ -307,7 +318,7 @@ const TextSection = ({
                 </Button>
               ) : (
                 <Button
-                  key={i}
+                  key={`standard-image-${i}`}
                   onClick={() => openImage(action)}
                   variant="pill"
                   w={{ base: "full", md: "auto" }}
@@ -317,6 +328,13 @@ const TextSection = ({
                 </Button>
               )
             )}
+            {bookingActions.map((action, i) => (
+              <BookingArrayWidget
+                key={`booking-${i}`}
+                calendarId={action.calendarId}
+                buttonText={action.label}
+              />
+            ))}
           </HStack>
         )}
       </Stack>

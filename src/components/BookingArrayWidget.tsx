@@ -1,88 +1,85 @@
-import React, { useEffect } from 'react';
-
-/**
- * BookingArrayWidget
- *
- * Эта компонента позволяет интегрировать календарь бронирования BookingArray
- * в проект на React/TypeScript. При монтировании компоненты на страницу
- * динамически добавляются CSS и JS от BookingArray (если они ещё не
- * загружены), а сам виджет активируется при клике на ссылку.
- *
- * Использование:
- *
- * ```tsx
- * import BookingArrayWidget from './BookingArrayWidget';
- *
- * function MyPage() {
- *   return (
- *     <section>
- *       <h2>Забронировать посещение</h2>
- *       <BookingArrayWidget calendarId="d443761a057b92277e7dfcded1bcc8ca/1" buttonText="Rezerwacja" />
- *     </section>
- *   );
- * }
- * ```
- *
- * Обратите внимание: calendarId должен быть получен из личного кабинета
- * BookingArray. В демо используется значение из старого проекта.
- */
+import React, { useCallback, useEffect, useRef } from "react";
+import { Box, Button } from "@chakra-ui/react";
 
 interface BookingArrayWidgetProps {
-  /**
-   * Идентификатор календаря BookingArray. Содержит GUID и номер канала, разделённые
-   * косой чертой, например: "d443761a057b92277e7dfcded1bcc8ca/1".
-   */
   calendarId: string;
-  /** Текст на кнопке бронирования. По умолчанию — 'Rezerwacja'. */
   buttonText?: string;
 }
 
-const BookingArrayWidget: React.FC<BookingArrayWidgetProps> = ({ calendarId, buttonText = 'Rezerwacja' }) => {
+const BookingArrayWidget: React.FC<BookingArrayWidgetProps> = ({ calendarId, buttonText = "Rezerwacja" }) => {
+  const buttonRef = useRef<HTMLAnchorElement | null>(null);
+
   useEffect(() => {
-    // Добавляем CSS BookingArray, если его ещё нет в документе.
-    const cssHref = 'https://system.bookingarray.com/public/bookingarray.css';
+    const cssHref = "https://system.bookingarray.com/public/bookingarray.css";
     if (!document.querySelector(`link[href='${cssHref}']`)) {
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
       link.href = cssHref;
       document.head.appendChild(link);
     }
 
-    // Добавляем скрипт BookingArray, если он ещё не загружен.
-    const scriptSrc = 'https://system.bookingarray.com/public/bookingarray.js';
-    if (!document.querySelector(`script[src='${scriptSrc}']`)) {
-      const script = document.createElement('script');
+    const ensureBookingScript = () => {
+      const scriptSrc = "https://system.bookingarray.com/public/bookingarray.js";
+      if (document.querySelector(`script[src='${scriptSrc}']`)) {
+        return;
+      }
+      const script = document.createElement("script");
       script.src = scriptSrc;
       script.async = true;
       document.body.appendChild(script);
+    };
+
+    const jquerySrc = "https://code.jquery.com/jquery-3.6.4.min.js";
+    const hasJquery = typeof window !== "undefined" && (window as any).jQuery;
+
+    if (!hasJquery) {
+      if (!document.querySelector(`script[src='${jquerySrc}']`)) {
+        const jqueryScript = document.createElement("script");
+        jqueryScript.src = jquerySrc;
+        jqueryScript.async = true;
+        jqueryScript.onload = ensureBookingScript;
+        document.body.appendChild(jqueryScript);
+      }
+    } else {
+      ensureBookingScript();
     }
   }, []);
 
+  useEffect(() => {
+    if (buttonRef.current) {
+      buttonRef.current.setAttribute("data-idCalendarReservation", calendarId);
+    }
+  }, [calendarId]);
+
+  const assignButtonRef = useCallback((node: HTMLAnchorElement | null) => {
+    buttonRef.current = node;
+  }, []);
+
   return (
-    <div className="booking-array-widget">
-      {/*
-        Элемент с классом calendarReservation и атрибутом data-idCalendarReservation
-        используется скриптом BookingArray для открытия модального окна.
-      */}
-      <a
+    <Box
+      className="booking-array-widget"
+      display="inline-flex"
+      flexDirection="column"
+      w={{ base: "full", md: "auto" }}
+    >
+      <Button
+        as="a"
         href="#"
         className="calendarReservation"
         data-idcalendarreservation={calendarId}
-        data-idCalendarReservation={calendarId}
+        ref={assignButtonRef}
+        onClick={(event) => event.preventDefault()}
+        variant="pill"
+        w={{ base: "full", md: "auto" }}
+        justifyContent="center"
       >
         {buttonText}
-      </a>
-      {/*
-        Контейнер для модального окна. BookingArray будет заполнять
-        внутренний <div> iframe'ом с календарём и управлять его
-        отображением. Стилевой класс calendarReservationData можно
-        настроить в bookingArrayStyles.css.
-      */}
-      <div className="calendarReservationData">
-        <span></span>
-        <div></div>
-      </div>
-    </div>
+      </Button>
+      <Box className="calendarReservationData">
+        <Box as="span" />
+        <Box />
+      </Box>
+    </Box>
   );
 };
 
