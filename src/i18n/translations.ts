@@ -35,7 +35,12 @@ type SectionInstagramCardAction = {
   modalTitle: string;
   modalSubtitle?: string;
 };
-type SectionAction = SectionLinkAction | SectionModalImageAction | SectionModalVideoAction | SectionInstagramCardAction;
+type SectionBookingWidgetAction = {
+  type: "bookingWidget";
+  label: string;
+  calendarId: string; 
+};
+type SectionAction = SectionLinkAction | SectionModalImageAction | SectionModalVideoAction | SectionInstagramCardAction | SectionBookingWidgetAction;
 interface SectionContent {
   title: string;
   paragraphs?: string[];
@@ -469,14 +474,6 @@ export const translations: Record<Locale, TranslationShape> = {
             "Phone: 883 920 388",
             "Office: 506 441 403",
             "Email: biuro@farmadyn.pl"
-          ]
-        },
-        {
-          title: "Opening hours",
-          paragraphs: [
-            "Season: 6 September – 31 October 2025",
-            "Open daily 09:00-18:00",
-            "We answer group reservation enquiries year-round via email"
           ],
           actions: [
             {
@@ -490,6 +487,14 @@ export const translations: Record<Locale, TranslationShape> = {
               modalTitle: "Scan the QR code",
               modalSubtitle: "Can't scan? Tap the code to open the profile."
             }
+          ]
+        },
+        {
+          title: "Opening hours",
+          paragraphs: [
+            "Season: 6 September – 31 October 2025",
+            "Open daily 09:00-18:00",
+            "We answer group reservation enquiries year-round via email"
           ]
         }
       ]

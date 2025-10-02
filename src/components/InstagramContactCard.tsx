@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import {
   AspectRatio,
   Box,
-  Image,
   Link,
   ListItem,
   Modal,
@@ -13,10 +12,11 @@ import {
   ModalOverlay,
   Stack,
   Text,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react";
 import { QRCodeCanvas } from "qrcode.react";
 import { useToken } from "@chakra-ui/react";
+import { resolveAssetPath } from "../utils/assetPath";
 
 interface InstagramContactCardProps {
   title: string;
@@ -41,6 +41,7 @@ const InstagramContactCard = ({
     outline: "none",
   } as const;
   const brand50 = useToken("colors", "brand.50");
+  const qrLogoSrc = useMemo(() => resolveAssetPath("images/pumpkin.png"), []);
   if (!href) return null;
 
   return (
@@ -108,7 +109,7 @@ const InstagramContactCard = ({
                     level="H"
                     includeMargin={false}
                     imageSettings={{
-                      src: "/images/pumpkin.png",
+                      src: qrLogoSrc,
                       x: undefined,
                       y: undefined,
                       height: 80,
