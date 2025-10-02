@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import {
   AspectRatio,
   Box,
@@ -23,6 +23,7 @@ import {
 import InstagramContactCard from "../InstagramContactCard";
 import BookingArrayWidget from "../BookingArrayWidget";
 import { resolveAssetPath } from "../../utils/assetPath";
+import ContactAddress from "../ContactAddress";
 
 type LinkAction = {
   type: "link";
@@ -103,7 +104,7 @@ const TextSection = ({
     onClose: onVideoClose,
   } = useDisclosure();
 
-  // helpers (вернули корректный вызов open/close)
+  // helpers to keep open/close wiring tidy
   const openImage = (a: ModalImageAction) => {
     setActiveImageAction(a);
     onImageOpen();
@@ -168,6 +169,11 @@ const TextSection = ({
   const phoneRegex = /(\+?\d[\d\s-]{4,}\d)/;
 
   const renderContactItem = (item: string) => {
+    const normalized = item.trim().toLowerCase();
+    if (normalized.startsWith("adres") || normalized.startsWith("address")) {
+      return <ContactAddress />;
+    }
+
     const emailMatch = item.match(emailRegex);
     if (emailMatch) {
       const email = emailMatch[0];
@@ -268,7 +274,7 @@ const TextSection = ({
                   role="group"
                   onClick={(e) => {
                     openVideo(action);
-                    (e.currentTarget as HTMLButtonElement).blur(); // опционально: вернуть цвет текста после клика
+                    (e.currentTarget as HTMLButtonElement).blur(); // optional: restore focus state
                   }}
                 >
                   <Box
