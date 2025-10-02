@@ -5,12 +5,12 @@ const currentYear = new Date().getFullYear();
 
 const footerCopy = {
   pl: {
-    rights: `Copyright ${currentYear} 🎃 Magic Pumpkin Farm. Wszystkie prawa zastrzeżone.`,
+    rights: `© ${currentYear} 🎃 Magic Pumpkin Farm.`,
     creditPrefix: "Projekt i development:",
     creditName: "Denys Muratov",
   },
   en: {
-    rights: `Copyright ${currentYear} 🎃 Magic Pumpkin Farm. All rights reserved.`,
+    rights: `© ${currentYear} 🎃 Magic Pumpkin Farm.`,
     creditPrefix: "Design & development:",
     creditName: "Denys Muratov",
   },
@@ -25,7 +25,7 @@ const Footer = () => {
   return (
     <Box
       as="footer"
-      bg="gray.50"
+      bg="whiteAlpha.900"
       borderTopWidth="1px"
       borderColor="blackAlpha.100"
       py={{ base: 6, md: 8 }}

@@ -46,7 +46,7 @@ const InstagramContactCard = ({
 
   return (
     <>
-      <ListItem fontSize={{ base: "sm", md: "md" }} color="gray.700">
+      <ListItem fontSize="md" color="gray.700">
         <Text as="span">
           {title}{" "}
           <Link
