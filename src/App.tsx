@@ -1,6 +1,7 @@
-import { Box, Flex } from "@chakra-ui/react";
+﻿import { Box, Flex } from "@chakra-ui/react";
 import { Route, Routes } from "react-router-dom";
 import NavigationBar from "./components/NavigationBar";
+import Footer from "./components/layout/Footer";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import HomePage from "./pages/HomePage";
 import PolicyPage from "./pages/PolicyPage";
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </Box>
+      <Footer />
       <ScrollToTopButton />
     </Flex>
   );

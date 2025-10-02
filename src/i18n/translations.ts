@@ -243,7 +243,7 @@ export const translations: Record<Locale, TranslationShape> = {
         {
           title: "Dane kontaktowe",
           paragraphs: [
-            "Na wiadomości telefoniczne odpowiadamy najszybciej w godzinach otwarcia farmy, a на e-maile po zamknięciu."
+            "Na wiadomości telefoniczne odpowiadamy najszybciej w godzinach otwarcia farmy, a nа e-maile po zamknięciu."
           ],
           list: [
             "Adres: ul. Drewny 17, Warszawa Powsin",
@@ -315,9 +315,9 @@ export const translations: Record<Locale, TranslationShape> = {
           ]
         },
         {
-          title: "Bezpieczeństwo i контакт",
+          title: "Bezpieczeństwo i kontakt",
           paragraphs: [
-            "Komunikacja z serwisem jest szyfrowana (SSL), a доступ do danych mają wyłącznie upoważnione osoby.",
+            "Komunikacja z serwisem jest szyfrowana (SSL), a dostęp do danych mają wyłącznie upoważnione osoby.",
             "W sprawach dotyczących ochrony danych skontaktuj się z nami pod adresem rodo@warsawexpo.eu.",
             "Dane możemy udostępnić organom publicznym, jeśli wymagają tego przepisy. Ruch na stronie analizujemy z użyciem Google Analytics, aby ulepszać nawigację."
           ]
