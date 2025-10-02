@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { qrcode } from "vite-plugin-qrcode";
 import { copyFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 
@@ -10,8 +11,12 @@ export default defineConfig(({ mode }) => {
 
   return {
     base,
+    server: {
+      host: true
+    },
     plugins: [
       react(),
+      qrcode(),
       {
         name: "copy-404",
         closeBundle() {
